@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 @Entity
 @Table(name="offices")
 public class Offices {
@@ -22,20 +24,26 @@ public class Offices {
 	@Id
 	@Column(name="officeId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer officeId;
 	@Column(name="officeName")
+	
 	private String officeName;
 	@Column(name="officeAddressLineOne")
 	private String officeAddressLineOne;
 	@Column(name="officeAddressLineTwo")
 	private String officeAddressLineTwo;
+
 	@Column(name="officeCity")
 	private String officeCity;
+
 	@Column(name="officeZipCode")
 	private Integer officeZipCode;
 	@Column(name="officeTel")
-	private BigDecimal officeTel;
+	
+	private String officeTel;
 	@Column(name="officeCountry")
+
 	private String officeCountry; 
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -63,8 +71,8 @@ public class Offices {
 	 * @param officeTel
 	 * @param officeCountry
 	 */
-	public Offices(int officeId, String officeName, String officeAddressLineOne, String officeAddressLineTwo,
-			String officeCity, int officeZipCode, BigDecimal officeTel, String officeCountry) {
+	public Offices(Integer officeId, String officeName, String officeAddressLineOne, String officeAddressLineTwo,
+			String officeCity, Integer officeZipCode, String officeTel, String officeCountry) {
 		this.officeId = officeId;
 		this.officeName = officeName;
 		this.officeAddressLineOne = officeAddressLineOne;
@@ -76,7 +84,7 @@ public class Offices {
 	}
 	
 	public Offices(String officeName, String officeAddressLineOne, String officeAddressLineTwo,
-			String officeCity, int officeZipCode, BigDecimal officeTel, String officeCountry) {
+			String officeCity, Integer officeZipCode, String officeTel, String officeCountry) {
 		this.officeName = officeName;
 		this.officeAddressLineOne = officeAddressLineOne;
 		this.officeAddressLineTwo = officeAddressLineTwo;
@@ -86,11 +94,11 @@ public class Offices {
 		this.officeCountry = officeCountry;
 	}
 
-	public int getOfficeId() {
+	public Integer getOfficeId() {
 		return officeId;
 	}
 
-	public void setOfficeId(int officeId) {
+	public void setOfficeId(Integer officeId) {
 		this.officeId = officeId;
 	}
 
@@ -126,19 +134,19 @@ public class Offices {
 		this.officeCity = officeCity;
 	}
 
-	public int getOfficeZipCode() {
+	public Integer getOfficeZipCode() {
 		return officeZipCode;
 	}
 
-	public void setOfficeZipCode(int officeZipCode) {
+	public void setOfficeZipCode(Integer officeZipCode) {
 		this.officeZipCode = officeZipCode;
 	}
 
-	public BigDecimal getOfficeTel() {
+	public String getOfficeTel() {
 		return officeTel;
 	}
 
-	public void setOfficeTel(BigDecimal officeTel) {
+	public void setOfficeTel(String officeTel) {
 		this.officeTel = officeTel;
 	}
 
@@ -150,13 +158,31 @@ public class Offices {
 		this.officeCountry = officeCountry;
 	}
 
+	public List<Accounts> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Accounts> accounts) {
+		this.accounts = accounts;
+	}
+
+	public List<Users> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<Users> users) {
+		this.users = users;
+	}
+
 	@Override
 	public String toString() {
 		return "Offices [officeId=" + officeId + ", officeName=" + officeName + ", officeAddressLineOne="
 				+ officeAddressLineOne + ", officeAddressLineTwo=" + officeAddressLineTwo + ", officeCity=" + officeCity
 				+ ", officeZipCode=" + officeZipCode + ", officeTel=" + officeTel + ", officeCountry=" + officeCountry
-				+ "]";
+				+ ", accounts=" + accounts + ", users=" + users + "]";
 	}
+
+
 	
 	
 }

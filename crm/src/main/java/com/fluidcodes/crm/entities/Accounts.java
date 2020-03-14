@@ -52,7 +52,7 @@ public class Accounts {
 	 * @param bankName
 	 * @param balance
 	 */
-	public Accounts(BigDecimal accountId, int officeId, String accountIban, String swiftCode, String bankName,
+	public Accounts(BigDecimal accountId, Integer officeId, String accountIban, String swiftCode, String bankName,
 			Double balance) {
 		this.accountId = accountId;
 		this.officeId = officeId;
@@ -73,12 +73,12 @@ public class Accounts {
 	}
 
 
-	public int getOfficeId() {
+	public Integer getOfficeId() {
 		return officeId;
 	}
 
 
-	public void setOfficeId(int officeId) {
+	public void setOfficeId(Integer officeId) {
 		this.officeId = officeId;
 	}
 

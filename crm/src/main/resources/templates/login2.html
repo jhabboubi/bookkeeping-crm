@@ -1,0 +1,183 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <!-- Materialize from google version 1.0.0 -->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- My style sheet-->
+  <link rel="stylesheet" href="../css/mystylesheet.css">
+
+
+  <link rel="shortcut icon" href="../images/favicon-fc.png" />
+  <style>
+    .mylogologin {
+
+      width: 50%;
+
+    }
+
+    .row>div {
+      background: white;
+      line-height: 100px;
+      border: 0px solid white;
+
+      text-align: center;
+
+
+    }
+  </style>
+
+
+
+
+  <title>Login - MS Bookkeeping</title>
+
+
+
+
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <div class="row" style="padding-top: 150px;">
+        <div class="col s12 m12 l12">
+
+          <img class="responsive-img mylogologin" src="../images/logo.png" />
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </header>
+
+  <div class="container z-depth-2">
+
+
+    <div class="row">
+
+      <form action="index.html" class="col s12 m12 l12">
+
+
+        <div class="input-field col s6 m6 l6">
+
+          <input id="username" type="text" class="validate">
+          <label for="username">Username</label>
+        </div>
+    
+
+
+    <div class="input-field col s6 m6 l6">
+      <input id="password" type="password" class="validate">
+      <label for="password">Password</label>
+
+    </div>
+
+    
+    <div>
+      <button class="btn waves-effect waves-light col s4 m3 l3 " type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+
+      <a class="col s5 m3 l3" style="padding-top: 6px;"href="forgot.html">Forgot Password</a>
+    </div>
+
+    </form>
+  </div>
+
+
+    <footer class="page-footer red">
+      <div class="container ">
+        <!-- <div class="row">
+          <div class="col s12 m12 l12 red">
+
+          </div>
+
+        </div> -->
+      </div>
+      <div class="footer-copyright">
+        <div class="container black-text">
+          © 2020 Fluid Codes. All rights reserved.
+
+          <a href="#terms" class="modal-trigger">
+            Terms & Conditions
+          </a>
+          <div class="modal" id="terms">
+            <div class="modal-content">
+              <h5>CORPORATE WEBSITE – PRIVACY STATEMENT</h5>
+              Fluid Codes LTD - respects your privacy and it is our endeavor and objective to provide excellent quality
+              service to all our employees. This privacy statement has been formulated to help you understand the nature
+              of the information we collect from you when you visit our website and how this personal information will
+              be
+              treated by us.
+
+
+              <h5>Browsing</h5>
+              Whenever you visit websites, the server used by our web Host will make a record of your IP Address, the
+              date
+              and time of your visit, the type of Internet Browser you use and the URL of any web site which referred
+              you
+              to our web site.
+
+
+
+              <h5>Disclosure of Information</h5>
+              Fluid Codes LTD - will maintain at all times the privacy and confidentiality of all personal information
+              collected. Such information may only be disclosed when required by law or when we believe that such action
+              is necessary or desirable to provide products and services, or technical support. Disclosure may only be
+              made upon an order from a Judicial or Regulatory Authority.
+              We will not sell, trade, rent or release any information to any third party outside Fluid Codes LTD, its
+              business divisions or its subsidiary companies, without your permission unless it is done on an aggregated
+              basis for analytical purposes .
+
+              <h5>Privacy Policy Changes</h5>
+              We reserve the right to change this Privacy Policy Terms and Conditions as and when necessary and
+              appropriate.
+
+              <h5>Conclusion</h5>
+              Your privacy concerns are important to us. We hope this policy statement has been helpful in conveying
+              this
+              to you.
+              <div class="modal-footer left">
+                <a href="#" class="modal-close btn-small waves-effect waves-light-3 red">
+                  Agree & Close
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div><!--  container -->
+  <!--Load jquery before any other library-->
+  <!-- jQuery JavaScript Library v3.4.1|Download the uncompressed, development jQuery 3.4.1 -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"> </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- script for mobile side menu ID 1-->
+  <script>
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+      $('.modal').modal();
+    });
+  </script>
+
+</body>
+
+</html>

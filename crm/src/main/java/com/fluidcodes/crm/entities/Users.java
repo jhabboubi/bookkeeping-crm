@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="users")
 public class Users {
@@ -15,10 +16,13 @@ public class Users {
 		// fields
 	@Id
 	@Column(name="userId")
+	@NotNull
 	private BigDecimal userId;
 	@Column(name="officeId")
+	@NotNull
 	private Integer officeId;
 	@Column(name="userNameEn")
+	@NotNull
 	private String userNameEn;
 	@Column(name="userNameAr")
 	private String userNameAr;
@@ -33,7 +37,8 @@ public class Users {
 	@Column(name="userImgUrl")
 	private String userImgUrl;
 	@Column(name="userRole")
-	private Integer userRole;
+	@NotNull
+	private String userRole;
 
 	//default constructor
 	
@@ -54,7 +59,7 @@ public class Users {
 	 * @param userRole
 	 */
 	public Users(BigDecimal userId, int officeId, String userNameEn, String userNameAr, Date userIdRenewalDateGorg,
-			String userIdRenewalDateHijri, String userName, String userPass, String userImgUrl, int userRole) {
+			String userIdRenewalDateHijri, String userName, String userPass, String userImgUrl, String userRole) {
 		this.userId = userId;
 		this.officeId = officeId;
 		this.userNameEn = userNameEn;
@@ -75,11 +80,11 @@ public class Users {
 		this.userId = userId;
 	}
 
-	public int getOfficeId() {
+	public Integer getOfficeId() {
 		return officeId;
 	}
 
-	public void setOfficeId(int officeId) {
+	public void setOfficeId(Integer officeId) {
 		this.officeId = officeId;
 	}
 
@@ -139,11 +144,11 @@ public class Users {
 		this.userImgUrl = userImgUrl;
 	}
 
-	public int getUserRole() {
+	public String getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(int userRole) {
+	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 
@@ -154,7 +159,7 @@ public class Users {
 				+ userIdRenewalDateHijri + ", userName=" + userName + ", userPass=" + userPass + ", userImgUrl="
 				+ userImgUrl + ", userRole=" + userRole + "]";
 	}
-	
+
 	
 	
 	

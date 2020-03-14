@@ -1,0 +1,52 @@
+/* change color of menu links to black */
+a.thenav {
+	color: black;
+}
+/* grid coloring  */
+.row>div {
+	background: #ddd;
+	line-height: 100px;
+	border: 2px solid white;
+	text-align: center;
+}
+/* grid margins  */
+.row {
+	margin: 20px auto;
+}
+
+table td, table td * {
+	vertical-align: top;
+}
+
+@media only screen and (max-width: 992px) {
+	.myactiontd {
+		padding: 10px 0px 0px 0px;
+	}
+}
+
+.brand-logo>img {
+	max-width: 100%;
+	width: 120px;
+	margin-top: 10px;
+}
+
+nav .badge {
+	position: relative;
+	top: 23px;
+	right: 20px;
+}
+
+@media only screen and (max-width: 992px) {
+	.brand-logo>img {
+		margin-top: 10px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		max-width: 40%;
+	}
+	form .label {
+		padding-top: 5px;
+	}
+}
