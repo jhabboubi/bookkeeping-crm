@@ -120,7 +120,7 @@
 						th:field="*{newOffice.officeName}" class="validate" /> <label
 						for="officeName">Office Name</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeName')}"
-						th:errors="*{newOffice.officeName}">Name Error</span>
+						th:errors="*{newOffice.officeName}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
@@ -129,7 +129,7 @@
 						th:field="*{newOffice.officeAddressLineOne}" class="validate" />
 					<label for="officeAddressLineOne">Address Line 1</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeAddressLineOne')}"
-						th:errors="*{newOffice.officeAddressLineOne}">Name Error</span>
+						th:errors="*{newOffice.officeAddressLineOne}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
@@ -138,7 +138,7 @@
 						th:field="*{newOffice.officeAddressLineTwo}" class="validate" />
 					<label for="officeAddressLineTwo">Address Line 2</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeAddressLineTwo')}"
-						th:errors="*{newOffice.officeAddressLineTwo}">Name Error</span>
+						th:errors="*{newOffice.officeAddressLineTwo}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
@@ -147,7 +147,7 @@
 						th:field="*{newOffice.officeCity}" class="validate" /> <label
 						for="officeCity">City</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeCity')}"
-						th:errors="*{newOffice.officeCity}">Name Error</span>
+						th:errors="*{newOffice.officeCity}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
@@ -156,7 +156,7 @@
 						th:field="*{newOffice.officeZipCode}" class="validate" /> <label
 						for="officeZipCode">ZipCode</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeZipCode')}"
-						th:errors="*{newOffice.officeZipCode}">Name Error</span>
+						th:errors="*{newOffice.officeZipCode}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
@@ -165,7 +165,7 @@
 						th:field="*{newOffice.officeCountry}" class="validate" /> <label
 						for="officeCountry">Country</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeCountry')}"
-						th:errors="*{newOffice.officeCountry}">Name Error</span>
+						th:errors="*{newOffice.officeCountry}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
@@ -173,7 +173,7 @@
 					<input id="officeTel" type="text" th:field="*{newOffice.officeTel}"
 						class="validate" /> <label for="officeTel">Telephone</label> <span
 						th:if="${#fields.hasErrors('newOffice.officeTel')}"
-						th:errors="*{newOffice.officeTel}">Name Error</span>
+						th:errors="*{newOffice.officeTel}" class="error">Name Error</span>
 				</div>
 
 
