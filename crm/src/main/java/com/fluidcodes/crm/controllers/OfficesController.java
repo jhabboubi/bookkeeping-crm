@@ -2,8 +2,11 @@ package com.fluidcodes.crm.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,9 +56,12 @@ public class OfficesController {
 	}
 	
 	@PostMapping("saveoffice")
-	public String saveOffice(@ModelAttribute("newOffice") Offices newOffice) {
+	public String saveOffice(@Valid @ModelAttribute("newOffice") Offices newOffice, BindingResult bind) {
 
-		
+		if(bind.hasErrors()) {
+			System.out.println("error count:"+bind.getErrorCount());
+			return "officeform";
+		}
 		
 		System.out.println("after submit button: "+ newOffice);
 		

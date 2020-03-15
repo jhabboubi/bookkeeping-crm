@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -24,31 +27,55 @@ public class Offices {
 	@Id
 	@Column(name="officeId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer officeId;
-	@Column(name="officeName")
 	
+	
+	@Column(name="officeName")
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=50,message = "Field must be more than two letters!")
 	private String officeName;
+	
+	
 	@Column(name="officeAddressLineOne")
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=50,message = "Field must be more than two letters!")
 	private String officeAddressLineOne;
+	
+	
 	@Column(name="officeAddressLineTwo")
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=50,message = "Field must be more than two letters!")
 	private String officeAddressLineTwo;
-
+	
+	
 	@Column(name="officeCity")
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=50,message = "Field must be more than two letters!")
 	private String officeCity;
+	
 
 	@Column(name="officeZipCode")
-	private Integer officeZipCode;
-	@Column(name="officeTel")
+	@NotNull(message="Field is required!")
+	@Pattern(regexp = "^\\d{5}$",message = "Five numeric digits only!")
+	private String officeZipCode;
 	
+	
+	@Column(name="officeTel")
+	@NotNull(message="Field is required!")
+	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$",message = "Allows 7,10,11# optional hyphens")
 	private String officeTel;
+	
+	
 	@Column(name="officeCountry")
-
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=50,message = "Field must be more than two letters!")
 	private String officeCountry; 
+	
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="officeId")
 	private List<Accounts> accounts;
+	
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="officeId")
@@ -104,11 +131,11 @@ public class Offices {
 		this.officeCity = officeCity;
 	}
 
-	public Integer getOfficeZipCode() {
+	public String getOfficeZipCode() {
 		return officeZipCode;
 	}
 
-	public void setOfficeZipCode(Integer officeZipCode) {
+	public void setOfficeZipCode(String officeZipCode) {
 		this.officeZipCode = officeZipCode;
 	}
 
