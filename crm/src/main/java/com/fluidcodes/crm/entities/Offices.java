@@ -38,13 +38,13 @@ public class Offices {
 	
 	@Column(name="officeAddressLineOne")
 	@NotNull(message="Field is required!")
-	@Size(min=2, max=50,message = "Field must be more than two letters!")
+	@Size(min=2, max=100,message = "Field must be more than two letters!")
 	private String officeAddressLineOne;
 	
 	
 	@Column(name="officeAddressLineTwo")
 	@NotNull(message="Field is required!")
-	@Size(min=2, max=50,message = "Field must be more than two letters!")
+	@Size(min=2, max=100,message = "Field must be more than two letters!")
 	private String officeAddressLineTwo;
 	
 	
