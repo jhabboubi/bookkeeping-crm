@@ -88,13 +88,19 @@
     
         <h1 class="flow-text center" style="padding-top: 10px;">Ms Bookkeeping</h1>
 
+    <div class="row">
+    <div class="col s12 m12 l12 xl12" style="background: #fff;">
+        <h3 class="flow-text center">Offices List</h3>
+        </div>
     
+    </div>
     
        <div  class="row" >
         <div class="col s3 m3 l3 xl3" style="background: #fff;">
-        <a th:href="@{newoffice}" class="waves-effect waves-light btn">office<i class="material-icons right">add</i>button</a>
-        
+        <a th:href="@{newoffice}" class="waves-effect waves-light btn-small">office<i class="material-icons right">add</i>button</a>  
         </div>   
+        
+        
         <div class="col s12 m12 l12 xl12">
             <table class="responsive-table left">
                 <thead>
@@ -103,7 +109,7 @@
                       <th>Address</th>
                       <th>Country</th>
                       <th>Telephone</th>
-                     <!--  <th>Edit | Delete</th>-->
+                     <th><i class="material-icons right">edit</i> <i class="material-icons right">delete</i></th>
                      
                   </tr>
                 </thead>
@@ -115,7 +121,7 @@
                     <td th:text="|${office.officeAddressLineOne} ${office.officeAddressLineTwo} ${office.officeCity} ${office.officeZipCode}|"></td>
                     <td th:text="${office.officeCountry}"></td>
                     <td th:text="${office.officeTel}"></td>
-                  <!--    <td><a th:href="@{'/edit/' + ${product.id}}">Edit</a> <a th:href="@{'/delete/' + ${product.id}}">Delete</a></td>-->
+                    <td><a th:href="@{/editoffice(officeId=${office.officeId})}"><i class="material-icons right">edit</i></a> <a th:href="@{/deleteoffice(officeId=${office.officeId})}"><i class="material-icons right">delete</i></a></td>
 					
 					
                     

@@ -27,10 +27,9 @@ public class OfficesService  {
 	}
 
 	public Offices findById(Integer id) {
-		if(existsById(id))
+		
 			return repo.findById(id).get();
-		else
-		return null;
+		
 	}
 
 	public boolean existsById(Integer id) {
@@ -52,6 +51,7 @@ public class OfficesService  {
 	}
 	public void save(Offices newOffice) {
 		repo.save(newOffice);
+		
 	}
 	
 

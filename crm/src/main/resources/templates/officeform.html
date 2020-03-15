@@ -92,7 +92,7 @@
     
      <div  class="row">
         <div class="col s12 m12 l12" style="background: white;">
-          <h1 class="flow-text">Add New Office</h1>
+          <h1 class="flow-text">Office Form</h1>
         </div>
 
     </div> 
@@ -100,56 +100,62 @@
     
     <div class="row">
 
-      <form th:action="@{/saveoffice}" "col s12 m12 l12">
+      <form th:action="@{/saveoffice}" method="post" class="col s12 m12 l12">
+        <!--      <div class="input-field col s6 m6 l6">
 
+          <p th:text="*{newOffice.officeId}"></p>
+          
+        </div>-->
+        
+           <div class="input-field col s6 m6 l6">
+
+          <input id="officeId" th:field="*{newOffice.officeId}" type="text"  class="validate" readonly="readonly" />
+          <label for="officeId">Office ID</label>
+        </div>
 
         <div class="input-field col s6 m6 l6">
 
-          <input id="officeName" type="text" th:field="*{newOffice.officeName}" class="validate">
+          <input id="officeName" type="text" th:field="*{newOffice.officeName}" class="validate" />
           <label for="officeName">Office Name</label>
         </div>
         
                <div class="input-field col s6 m6 l6">
 
-          <input id="officeAddressLineOne" type="text" th:field="*{newOffice.officeAddressLineOne}" class="validate">
+          <input id="officeAddressLineOne" type="text" th:field="*{newOffice.officeAddressLineOne}" class="validate" />
           <label for="officeAddressLineOne">Address Line 1</label>
         </div>
         
                <div class="input-field col s6 m6 l6">
 
-          <input id="officeAddressLineTwo" type="text" th:field="*{newOffice.officeAddressLineTwo}" class="validate">
+          <input id="officeAddressLineTwo" type="text" th:field="*{newOffice.officeAddressLineTwo}" class="validate" />
           <label for="officeAddressLineTwo">Address Line 2</label>
         </div>
         
                <div class="input-field col s6 m6 l6">
 
-          <input id="officeCity" type="text" th:field="*{newOffice.officeCity}" class="validate">
+          <input id="officeCity" type="text" th:field="*{newOffice.officeCity}" class="validate" />
           <label for="officeCity">City</label>
         </div>
         
                <div class="input-field col s6 m6 l6">
 
-          <input id="officeZipCode" type="text" th:field="*{newOffice.officeZipCode}" class="validate">
+          <input id="officeZipCode" type="text" th:field="*{newOffice.officeZipCode}" class="validate" />
           <label for="officeZipCode">ZipCode</label>
         </div>
         
                <div class="input-field col s6 m6 l6">
 
-          <input id="officeCountry" type="text" th:field="*{newOffice.officeCountry}" class="validate">
+          <input id="officeCountry" type="text" th:field="*{newOffice.officeCountry}" class="validate" />
           <label for="officeCountry">Country</label>
         </div>
         
                <div class="input-field col s6 m6 l6">
 
-          <input id="officeTel" type="text" th:field="*{newOffice.officeTel}" class="validate">
+          <input id="officeTel" type="text" th:field="*{newOffice.officeTel}" class="validate" />
           <label for="officeTel">Telephone</label>
         </div>
         
-               <div class="input-field col s6 m6 l6">
-
-          <input disabled id="officeId" type="text" th:field="*{newOffice.officeId}" class="validate">
-          <label for="officeId">ID</label>
-        </div>
+           
     
 
 
@@ -161,7 +167,6 @@
         <i class="material-icons right">send</i>
       </button>
 
-      <a class="col s5 m3 l3" style="padding-top: 6px;"href="forgot.html">Forgot Password</a>
     </div>
 
     </form>

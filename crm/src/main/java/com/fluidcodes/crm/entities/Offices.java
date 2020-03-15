@@ -1,6 +1,6 @@
 package com.fluidcodes.crm.entities;
 
-import java.math.BigDecimal;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -61,38 +61,8 @@ public class Offices {
 		System.out.println("Offices default constructor called!");
 	}
 
-	/**
-	 * @param officeId
-	 * @param officeName
-	 * @param officeAddressLineOne
-	 * @param officeAddressLineTwo
-	 * @param officeCity
-	 * @param officeZipCode
-	 * @param officeTel
-	 * @param officeCountry
-	 */
-	public Offices(Integer officeId, String officeName, String officeAddressLineOne, String officeAddressLineTwo,
-			String officeCity, Integer officeZipCode, String officeTel, String officeCountry) {
-		this.officeId = officeId;
-		this.officeName = officeName;
-		this.officeAddressLineOne = officeAddressLineOne;
-		this.officeAddressLineTwo = officeAddressLineTwo;
-		this.officeCity = officeCity;
-		this.officeZipCode = officeZipCode;
-		this.officeTel = officeTel;
-		this.officeCountry = officeCountry;
-	}
+
 	
-	public Offices(String officeName, String officeAddressLineOne, String officeAddressLineTwo,
-			String officeCity, Integer officeZipCode, String officeTel, String officeCountry) {
-		this.officeName = officeName;
-		this.officeAddressLineOne = officeAddressLineOne;
-		this.officeAddressLineTwo = officeAddressLineTwo;
-		this.officeCity = officeCity;
-		this.officeZipCode = officeZipCode;
-		this.officeTel = officeTel;
-		this.officeCountry = officeCountry;
-	}
 
 	public Integer getOfficeId() {
 		return officeId;
