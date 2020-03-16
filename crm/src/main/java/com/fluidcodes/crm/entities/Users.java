@@ -1,13 +1,19 @@
 package com.fluidcodes.crm.entities;
 
-import java.math.BigDecimal;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="users")
 public class Users {
@@ -15,29 +21,44 @@ public class Users {
 	
 		// fields
 	@Id
-	@Column(name="userId")
-	@NotNull
-	private BigDecimal userId;
-	@Column(name="officeId")
-	@NotNull
+	@Column(name="userId")	
+	private Long userId;
+	
+	
+	@Column(name="officeId")	
 	private Integer officeId;
+	
+	
 	@Column(name="userNameEn")
-	@NotNull
 	private String userNameEn;
+	
+	
 	@Column(name="userNameAr")
 	private String userNameAr;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="userIdRenewalDateGorg")
 	private Date userIdRenewalDateGorg;
+	
+	
 	@Column(name="userIdRenewalDateHijri")
 	private String userIdRenewalDateHijri;
+	
+	
 	@Column(name="userName")
 	private String userName;
+	
+	
 	@Column(name="userPass")
 	private String userPass;
+	
+	
 	@Column(name="userImgUrl")
 	private String userImgUrl;
+	
+	
 	@Column(name="userRole")
-	@NotNull
 	private String userRole;
 
 	//default constructor
@@ -45,38 +66,22 @@ public class Users {
 	public Users() {
 		System.out.println("Users default constructor called!");
 	}
-
-	/**
-	 * @param userId
-	 * @param officeId
-	 * @param userNameEn
-	 * @param userNameAr
-	 * @param userIdRenewalDateGorg
-	 * @param userIdRenewalDateHijri
-	 * @param userName
-	 * @param userPass
-	 * @param userImgUrl
-	 * @param userRole
-	 */
-	public Users(BigDecimal userId, int officeId, String userNameEn, String userNameAr, Date userIdRenewalDateGorg,
-			String userIdRenewalDateHijri, String userName, String userPass, String userImgUrl, String userRole) {
-		this.userId = userId;
-		this.officeId = officeId;
-		this.userNameEn = userNameEn;
-		this.userNameAr = userNameAr;
-		this.userIdRenewalDateGorg = userIdRenewalDateGorg;
-		this.userIdRenewalDateHijri = userIdRenewalDateHijri;
-		this.userName = userName;
-		this.userPass = userPass;
-		this.userImgUrl = userImgUrl;
-		this.userRole = userRole;
+	
+	
+	public static Date StringToDate(String dob) throws ParseException {
+	      //Instantiating the SimpleDateFormat class
+	      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+	      //Parsing the given String to Date object
+	      Date date = formatter.parse(dob);
+	      System.out.println("Date object value: "+date);
+	      return date;
 	}
 
-	public BigDecimal getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(BigDecimal userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -159,6 +164,8 @@ public class Users {
 				+ userIdRenewalDateHijri + ", userName=" + userName + ", userPass=" + userPass + ", userImgUrl="
 				+ userImgUrl + ", userRole=" + userRole + "]";
 	}
+
+	
 
 	
 	

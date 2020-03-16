@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,21 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fluidcodes.crm.entities.Offices;
+import com.fluidcodes.crm.entities.Users;
 import com.fluidcodes.crm.services.OfficesService;
+import com.fluidcodes.crm.services.UsersService;
 
 @Controller
 public class OfficesController {
-
-	private OfficesService service;
+	@Autowired
+	private OfficesService officeservice;
+	@Autowired
+	private UsersService usersservice;
 	
-	public OfficesController(OfficesService service) {
-		this.service=service;
+	public OfficesController(OfficesService officeservice) {
+		this.officeservice=officeservice;
 	}
 	
 	@RequestMapping("admin")
-	public String listOffices(Model model) {
-		List<Offices> listOffices = service.findAll();
-		model.addAttribute("listOffices", listOffices);
+	public String listOffices(Model modelOffices,Model modelUsers) {
+		List<Offices> listOffices = officeservice.findAll();
+		modelOffices.addAttribute("listOffices", listOffices);
+		
+		
+		List<Users> listUsers = usersservice.findAll();
+		modelUsers.addAttribute("listUsers", listUsers);
 		
 		return"admin";
 	}
@@ -40,6 +49,9 @@ public class OfficesController {
 		model.addAttribute("newOffice", newOffice);
 		
 		
+		
+		
+		
 		return "officeform";
 	}
 	
@@ -47,7 +59,7 @@ public class OfficesController {
 	@RequestMapping("editoffice")
 	public String editOffice(@RequestParam("officeId") Integer officeId, Model model) {
 		
-		Offices editOffice = service.findById(officeId);
+		Offices editOffice = officeservice.findById(officeId);
 		System.out.println("ID for Edit: "+officeId);
 		System.out.println("On edit form"+editOffice);
 		model.addAttribute("newOffice", editOffice);
@@ -65,7 +77,7 @@ public class OfficesController {
 		
 		System.out.println("after submit button: "+ newOffice);
 		
-		service.save(newOffice);
+		officeservice.save(newOffice);
 		
 		
 		return "redirect:/admin";
@@ -74,7 +86,7 @@ public class OfficesController {
 	
 	@GetMapping("deleteoffice")
 	public String deleteOffice(@RequestParam("officeId") Integer officeId) {
-		service.deleteById(officeId);
+		officeservice.deleteById(officeId);
 		
 		
 		return "redirect:/admin";
