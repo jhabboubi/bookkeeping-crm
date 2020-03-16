@@ -109,6 +109,7 @@
 				<table class="responsive-table left">
 					<thead>
 						<tr>
+							<th>ID</th>
 							<th>Office Name</th>
 							<th>Address</th>
 							<th>Country</th>
@@ -121,7 +122,7 @@
 
 					<tbody>
 						<tr th:each="office: ${listOffices}">
-
+							<td th:text="${office.officeId}"></td>
 							<td th:text="${office.officeName}"></td>
 							<td
 								th:text="|${office.officeAddressLineOne} ${office.officeAddressLineTwo} ${office.officeCity} ${office.officeZipCode}|"></td>
@@ -173,13 +174,13 @@
 						<tr>
 							<th>User ID</th>
 							<th>Office ID</th>
-							<!-- <th>Office Name</th> -->
-							<th>Username</th>
-							<th>User Name EN</th>
-							<th>User Name AR</th>
-							<th>ID Renewal Date Gorg</th>
-							<th>User Role</th>
-							<th>User Password</th>
+							<th>En Name</th>
+							<th>Ar Name</th>
+							<th>Email</th>
+							<th>Mobile</th>
+							<th>ID Renewal</th>
+							<th>Role</th>
+							<th>Password</th>
 							<th><a th:href="@{newuser}"><i
 									class="material-icons right">add</i></a></th>
 
@@ -190,11 +191,11 @@
 						<tr th:each="user: ${listUsers}">
 
 							<td th:text="${user.userId}"></td>
-							<td th:text="${user.officeId}"></td>
-							<td th:text="${user.userName}"></td>
+							<td th:text="${user.officeId}"></td>				
 							<td th:text="${user.userNameEn}"></td>
 							<td th:text="${user.userNameAr}"></td>
-							
+							<td th:text="${user.userEmail}"></td>
+							<td th:text="${user.userMobile}"></td>
 							<td th:text="${#dates.format(user.userIdRenewalDateGorg, 'dd-MMM-yyyy')}"></td>
 							<td th:text="${user.userRole}"></td>
 							<td th:text="${user.userPass}"></td>

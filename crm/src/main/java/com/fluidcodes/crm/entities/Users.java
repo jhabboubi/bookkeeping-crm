@@ -1,8 +1,6 @@
 package com.fluidcodes.crm.entities;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,24 +22,31 @@ public class Users {
 	
 		// fields
 	@Id
-	@Column(name="userId")	
+	@Column(name="userId")
+	@NotNull(message="Field is required!")
 	private Long userId;
 	
 	
 	@Column(name="officeId")	
+	@NotNull(message="Field is required!")
 	private Integer officeId;
 	
 	
 	@Column(name="userNameEn")
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=100,message = "Field must be more than two letters!")
 	private String userNameEn;
 	
 	
 	@Column(name="userNameAr")
+	@NotNull(message="Field is required!")
+	@Size(min=2, max=100,message = "Field must be more than two letters!")
 	private String userNameAr;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="userIdRenewalDateGorg")
+	@NotNull(message="Field is required!")
 	private Date userIdRenewalDateGorg;
 	
 	
@@ -46,11 +54,21 @@ public class Users {
 	private String userIdRenewalDateHijri;
 	
 	
-	@Column(name="userName")
-	private String userName;
+	@Column(name="userEmail")
+	@NotNull(message="Field is required!")
+	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", message="Ex: joe@aol.com or joe@wrox.com.sa")
+	private String userEmail;
+	
+	
+	@Column(name="userMobile")
+	@NotNull(message="Field is required!")
+	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$",message = "Allows 7,10,11# optional hyphens")
+	private String userMobile;
 	
 	
 	@Column(name="userPass")
+	@NotNull(message="Field is required!")
+	@Pattern(regexp = "^[a-zA-Z]\\w{3,14}$", message="Begin with a letter, 4-15 characters, and underscore may be used")
 	private String userPass;
 	
 	
@@ -59,6 +77,7 @@ public class Users {
 	
 	
 	@Column(name="userRole")
+	@NotNull(message="Field is required!")
 	private String userRole;
 
 	//default constructor
@@ -68,14 +87,7 @@ public class Users {
 	}
 	
 	
-	public static Date StringToDate(String dob) throws ParseException {
-	      //Instantiating the SimpleDateFormat class
-	      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-	      //Parsing the given String to Date object
-	      Date date = formatter.parse(dob);
-	      System.out.println("Date object value: "+date);
-	      return date;
-	}
+
 
 	public Long getUserId() {
 		return userId;
@@ -125,13 +137,7 @@ public class Users {
 		this.userIdRenewalDateHijri = userIdRenewalDateHijri;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
 
 	public String getUserPass() {
 		return userPass;
@@ -157,12 +163,44 @@ public class Users {
 		this.userRole = userRole;
 	}
 
+	
+
+
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+
+
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+
+
+
+	public String getUserMobile() {
+		return userMobile;
+	}
+
+
+
+
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Users [userId=" + userId + ", officeId=" + officeId + ", userNameEn=" + userNameEn + ", userNameAr="
 				+ userNameAr + ", userIdRenewalDateGorg=" + userIdRenewalDateGorg + ", userIdRenewalDateHijri="
-				+ userIdRenewalDateHijri + ", userName=" + userName + ", userPass=" + userPass + ", userImgUrl="
-				+ userImgUrl + ", userRole=" + userRole + "]";
+				+ userIdRenewalDateHijri + ", userEmail=" + userEmail + ", userMobile=" + userMobile + ", userPass="
+				+ userPass + ", userImgUrl=" + userImgUrl + ", userRole=" + userRole + "]";
 	}
 
 	

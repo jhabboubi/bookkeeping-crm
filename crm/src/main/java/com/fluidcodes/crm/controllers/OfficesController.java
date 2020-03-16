@@ -22,17 +22,17 @@ import com.fluidcodes.crm.services.UsersService;
 @Controller
 public class OfficesController {
 	@Autowired
-	private OfficesService officeservice;
+	private OfficesService officesservice;
 	@Autowired
 	private UsersService usersservice;
 	
 	public OfficesController(OfficesService officeservice) {
-		this.officeservice=officeservice;
+		this.officesservice=officeservice;
 	}
 	
 	@RequestMapping("admin")
 	public String listOffices(Model modelOffices,Model modelUsers) {
-		List<Offices> listOffices = officeservice.findAll();
+		List<Offices> listOffices = officesservice.findAll();
 		modelOffices.addAttribute("listOffices", listOffices);
 		
 		
@@ -59,7 +59,7 @@ public class OfficesController {
 	@RequestMapping("editoffice")
 	public String editOffice(@RequestParam("officeId") Integer officeId, Model model) {
 		
-		Offices editOffice = officeservice.findById(officeId);
+		Offices editOffice = officesservice.findById(officeId);
 		System.out.println("ID for Edit: "+officeId);
 		System.out.println("On edit form"+editOffice);
 		model.addAttribute("newOffice", editOffice);
@@ -77,7 +77,7 @@ public class OfficesController {
 		
 		System.out.println("after submit button: "+ newOffice);
 		
-		officeservice.save(newOffice);
+		officesservice.save(newOffice);
 		
 		
 		return "redirect:/admin";
@@ -86,7 +86,7 @@ public class OfficesController {
 	
 	@GetMapping("deleteoffice")
 	public String deleteOffice(@RequestParam("officeId") Integer officeId) {
-		officeservice.deleteById(officeId);
+		officesservice.deleteById(officeId);
 		
 		
 		return "redirect:/admin";

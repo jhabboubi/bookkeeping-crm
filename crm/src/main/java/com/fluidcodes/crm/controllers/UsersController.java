@@ -1,12 +1,11 @@
 package com.fluidcodes.crm.controllers;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,33 +17,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
-
+import com.fluidcodes.crm.services.OfficesService;
 import com.fluidcodes.crm.services.UsersService;
 
 @Controller
 public class UsersController {
+	@Autowired
+	private OfficesService officesservice;
+	@Autowired
+	private UsersService usersservice;
 
-	private UsersService service;
-	
-	public UsersController(UsersService service) {
-		this.service=service;
+	public UsersController(UsersService usersservice) {
+		this.usersservice=usersservice;
 	}
 	
-	@RequestMapping("userlistadmin")
-	public String listUsers(Model model) {
-		List<Users> listUsers = service.findAll();
-		model.addAttribute("listUsers", listUsers);
-		
-		return"admin";
-	}
+//	@RequestMapping("userlistadmin")
+//	public String listUsers(Model model) {
+//		List<Users> listUsers = service.findAll();
+//		model.addAttribute("listUsers", listUsers);
+//		
+//		return"admin";
+//	}
 	
 	@RequestMapping("newuser")
-	public String adduser(Model model) {
-		
+	public String adduser(Model modelUsers, Model modelOffices) {
+		List<Offices> officeInfo = officesservice.findAll();
 		Users newUser = new Users();
 		
-	
-		model.addAttribute("newUser", newUser);
+		modelOffices.addAttribute("listOfficesAva",officeInfo);
+		modelUsers.addAttribute("newUser", newUser);
 		
 		
 		return "userform";
@@ -54,7 +55,7 @@ public class UsersController {
 	@RequestMapping("edituser")
 	public String editUser(@RequestParam("userId") Long userId, Model model) {
 		
-		Users editUser = service.findById(userId);
+		Users editUser = usersservice.findById(userId);
 		System.out.println("ID for User Edit: "+userId);
 		System.out.println("On User edit form"+editUser);
 		model.addAttribute("newUser", editUser);
@@ -63,13 +64,16 @@ public class UsersController {
 	}
 	
 	@PostMapping("saveuser")
-	public String saveUser(@ModelAttribute("newUser") Users newUser) {
+	public String saveUser(@Valid @ModelAttribute("newUser") Users newUser, BindingResult bind) {
 
-		
+		if(bind.hasErrors()) {
+			System.out.println("error count:"+bind.getErrorCount());
+			return "userform";
+		}
 		
 		System.out.println("after submit button: "+ newUser);
 		
-		service.save(newUser);
+		usersservice.save(newUser);
 		
 		
 		return "redirect:/admin";
@@ -78,7 +82,7 @@ public class UsersController {
 	
 	@GetMapping("deleteuser")
 	public String deleteUser(@RequestParam("userId") Long userId) {
-		service.deleteById(userId);
+		usersservice.deleteById(userId);
 		
 		
 		return "redirect:/admin";

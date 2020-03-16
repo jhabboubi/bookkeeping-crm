@@ -99,8 +99,7 @@
 
 		<div class="row">
 
-			<form th:action="@{/saveuser}" method="post"
-				class="col s12 m12 l12">
+			<form th:action="@{/saveuser}" method="post" class="col s12 m12 l12">
 				<!--      <div class="input-field col s6 m6 l6">
 
           <p th:text="*{newOffice.officeId}"></p>
@@ -110,63 +109,122 @@
 				<div class="input-field col s12 m12 l6">
 
 					<input id="userId" th:field="${newUser.userId}" type="text"
-						class="validate"  /> <label for="userId">User
-						ID</label>
+						class="validate" /> <label for="userId">User ID</label> <span
+						th:if="${#fields.hasErrors('newUser.userId')}"
+						th:errors="*{newUser.userId}" class="error">Name Error</span>
 				</div>
-				
-					<div class="input-field col s12 m12 l6">
+
+				<!--  	<div class="input-field col s12 m12 l6">
 
 					<input id="officeId" th:field="${newUser.officeId}" type="text"
 						class="validate"  /> <label for="officeId">Office
 						ID</label>
-				</div>
-				
-				
-						<div class="input-field col s12 m12 l6">
+						<span
+						th:if="${#fields.hasErrors('newUser.officeId')}"
+						th:errors="*{newUser.officeId}" class="error">Name Error</span>
+				</div>-->
 
-					<input id="userName" th:field="*{newUser.userName}" type="text"
-						class="validate"  /> <label for="userName">Username</label>
+
+
+
+
+				<div class="input-field col s12 m12 l6">
+					<select th:field="${newUser.officeId}">
+						<option th:each="officesOption: ${listOfficesAva}"
+							th:value="${officesOption.officeId}"
+							th:text="${officesOption.officeName}" />
+
+					</select> <label>Offices</label>
+					<span
+						th:if="${#fields.hasErrors('newUser.officeId')}"
+						th:errors="*{newUser.officeId}" class="error">Name Error</span>
 				</div>
-				
-				
+
+
 
 				<div class="input-field col s12 m12 l6">
 
-					<input id="userNameAr" type="text"
-						th:field="*{newUser.userNameAr}" class="validate" /> <label
-						for="userNameAr">User Name(AR)</label> 
+					<input id="userNameAr" type="text" th:field="*{newUser.userNameAr}"
+						class="validate" /> <label for="userNameAr">Arabic Name</label> <span
+						th:if="${#fields.hasErrors('newUser.userNameAr')}"
+						th:errors="*{newUser.userNameAr}" class="error">Name Error</span>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
 
-					<input id="userNameEn" type="text"
-						th:field="*{newUser.userNameEn}" class="validate" />
-					<label for="userNameEn">User Name(EN)</label> 
+					<input id="userNameEn" type="text" th:field="*{newUser.userNameEn}"
+						class="validate" /> <label for="userNameEn">English Name</label>
+					<span th:if="${#fields.hasErrors('newUser.userNameEn')}"
+						th:errors="*{newUser.userNameEn}" class="error">Name Error</span>
 				</div>
+
+
+
+				<div class="input-field col s12 m12 l6">
+
+					<input id="userEmail" th:field="*{newUser.userEmail}" type="text"
+						class="validate" /> <label for="userEmail">Email</label> <span
+						th:if="${#fields.hasErrors('newUser.userEmail')}"
+						th:errors="*{newUser.userEmail}" class="error">Name Error</span>
+
+				</div>
+
+				<div class="input-field col s12 m12 l6">
+
+					<input id="userMobile" th:field="*{newUser.userMobile}" type="text"
+						class="validate" /> <label for="userMobile">Mobile</label> <span
+						th:if="${#fields.hasErrors('newUser.userMobile')}"
+						th:errors="*{newUser.userMobile}" class="error">Name Error</span>
+
+				</div>
+
+
+
 
 				<div class="input-field col s12 m12 l6">
 
 					<input id="userIdRenewalDateGorg" type="date"
-						th:field="*{newUser.userIdRenewalDateGorg}" class="validate" />
-					<label for="userIdRenewalDateGorg">ID Renewal Date(Gorg)</label> 
+						th:field="*{newUser.userIdRenewalDateGorg}" class="validate" /> <label
+						for="userIdRenewalDateGorg">ID Renewal Date(Gorg)</label> <span
+						th:if="${#fields.hasErrors('newUser.userIdRenewalDateGorg')}"
+						th:errors="*{newUser.userIdRenewalDateGorg}" class="error">Name
+						Error</span>
 				</div>
+
+				<!--  <div class="input-field col s12 m12 l6">
+
+					<input id="userRole" type="text" th:field="*{newUser.userRole}"
+						class="validate" /> <label for="userRole">User Role</label> <span
+						th:if="${#fields.hasErrors('newUser.userRole')}"
+						th:errors="*{newUser.userRole}" class="error">Name Error</span>
+
+				</div>-->
+				
+				
+				
+				<div class="input-field col s12 m12 l6">
+    <select th:field="*{newUser.userRole}">
+      <option value="EMPLOYEE">Employee</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+    <label>UserRole</label>
+     <span th:if="${#fields.hasErrors('newUser.userRole')}"
+						th:errors="*{newUser.userRole}" class="error">Name Error</span>
+  </div>
+  
+  
+  
 
 				<div class="input-field col s12 m12 l6">
 
-					<input id="userRole" type="text"
-						th:field="*{newUser.userRole}" class="validate" /> <label
-						for="userRole">User Role</label> 
-				</div>
-
-				<div class="input-field col s12 m12 l6">
-
-					<input id="userPass" type="text"
-						th:field="*{newUser.userPass}" class="validate" /> <label
-						for="userPass">Password</label> 
+					<input id="userPass" type="password" th:field="*{newUser.userPass}"
+						class="validate" /> <label for="userPass">Password</label> <span
+						th:if="${#fields.hasErrors('newUser.userPass')}"
+						th:errors="*{newUser.userPass}" class="error">Name Error</span>
 				</div>
 
 				<div>
-					<button class="btn waves-effect waves-light col s4 m3 l3 "
+					<button class="btn waves-effect waves-light col s12 m12 l12 "
 						type="submit" name="action">
 						Submit <i class="material-icons right">send</i>
 					</button>
@@ -260,6 +318,7 @@
 $(document).ready(function(){
 $('.sidenav').sidenav();
 $('.modal').modal();
+$('select').formSelect();
 });
 </script>
 
