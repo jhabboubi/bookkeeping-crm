@@ -39,9 +39,6 @@ public class OfficesController {
 		List<Users> listUsers = usersservice.findAll();
 		modelUsers.addAttribute("listUsers", listUsers);
 		
-		
-		//System.out.println("List of offices "+listOffices);
-		//System.out.println("List of users "+listUsers);
 
 		return"admin";
 	}

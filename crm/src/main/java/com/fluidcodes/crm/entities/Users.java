@@ -31,11 +31,7 @@ public class Users {
 	private Long userId;
 	
 	
-	//@Column(name="officeId")	
-	//@NotNull(message="Field is required!")
-	//private Integer officeId;
-	
-	@ManyToOne(fetch=FetchType.EAGER,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name = "officeId")
 	private Offices office;
 	
@@ -61,7 +57,7 @@ public class Users {
 	private String userIdRenewalDateHijri;
 	
 	
-	@Column(name="userEmail")
+	@Column(name="userEmail", unique=true)
 	@NotNull(message="Field is required!")
 	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", message="Ex: joe@aol.com or joe@wrox.com.sa")
 	private String userEmail;

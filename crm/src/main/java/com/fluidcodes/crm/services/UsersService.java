@@ -11,30 +11,30 @@ import com.fluidcodes.crm.dao.OfficesRepo;
 import com.fluidcodes.crm.dao.UsersRepo;
 import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
+
 @Service
-public class UsersService  {
+public class UsersService {
 
 	@Autowired
 	private UsersRepo userRepo;
-	
+
 	@Autowired
 	private OfficesRepo officeRepo;
-	
+
 	public List<Users> findAll() {
-		
+
 		return userRepo.findAll();
 	}
 
-
 	public Users getOne(Long id) {
-		
+
 		return userRepo.getOne(id);
 	}
 
 	public Users findById(Long id) {
-		
-			return userRepo.findById(id).get();
-		
+
+		return userRepo.findById(id).get();
+
 	}
 
 	public boolean existsById(Long id) {
@@ -44,45 +44,43 @@ public class UsersService  {
 
 	public long count() {
 		List<Users> usersCount = userRepo.findAll();
-		
+
 		return usersCount.size();
 	}
 
 	public void deleteById(Long id) {
-		
-		if(existsById(id))
+
+		if (existsById(id))
 			userRepo.deleteById(id);
 
 	}
+
 	public void save(Users newUser, Integer id) {
-	
-		//get permissions and assign
-        
-        Offices office = null;
-        Optional <Offices> o = officeRepo.findById(id);
-		
-        if(!o.isPresent()) {
-        	
-        	System.out.println("Office id dont exist");
-        	
-        }else {
-        	
-        	office = o.get();
-        	System.out.println("Set office: "+office);
-        }
-	
-		//office.getUsers().add(newUser);
-        office.add(newUser);
-		System.out.println("Set office after add user: "+office);
-		
-		//newUser.setOffice(office);
-		System.out.println("Set users after add office: "+newUser);
+
+		// get permissions and assign
+
+		Offices office = null;
+		Optional<Offices> o = officeRepo.findById(id);
+
+		if (!o.isPresent()) {
+
+			System.out.println("Office id dont exist");
+
+		} else {
+
+			office = o.get();
+			System.out.println("Set office: " + office);
+		}
+
+		// office.getUsers().add(newUser);
+		// newUser.setOffice(office);
+		office.add(newUser);
+		System.out.println("Set office after add user: " + office);
+
+		System.out.println("Set users after add office: " + newUser);
 		officeRepo.save(office);
 		userRepo.save(newUser);
-		
+
 	}
-	
-
-
 
 }

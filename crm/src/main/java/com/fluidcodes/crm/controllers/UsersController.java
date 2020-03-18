@@ -60,10 +60,14 @@ public class UsersController {
 	
 	
 	@RequestMapping("edituser")
-	public String editUser(@RequestParam("userId") Long userId, Model modelUsers, Model modelOffices) {
+	public String editUser(@RequestParam("userId") Long userId, Model modelUsers, Model modelOffices, Model office) {
 		List<Offices> officeInfo = officesservice.findAll();
+		modelOffices.addAttribute("listOfficesAva",officeInfo);
+		
 		
 		Users editUser = usersservice.findById(userId);
+		Offices userOffice = editUser.getOffice();
+		office.addAttribute("off", userOffice);
 		System.out.println("ID for User Edit: "+userId);
 		System.out.println("On User edit form"+editUser);
 		modelOffices.addAttribute("listOfficesAva",officeInfo);

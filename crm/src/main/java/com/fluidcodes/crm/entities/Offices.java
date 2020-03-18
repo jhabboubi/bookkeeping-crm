@@ -80,7 +80,7 @@ public class Offices {
 	private List<Accounts> accounts;
 	
 	
-	@OneToMany( mappedBy = "office",fetch=FetchType.EAGER,cascade= CascadeType.ALL)
+	@OneToMany( mappedBy = "office",fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JsonIgnore
 	private List<Users> users;
 	
