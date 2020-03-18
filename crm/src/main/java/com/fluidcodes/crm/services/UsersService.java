@@ -1,58 +1,84 @@
 package com.fluidcodes.crm.services;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-
+import com.fluidcodes.crm.dao.OfficesRepo;
 import com.fluidcodes.crm.dao.UsersRepo;
-
+import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
 @Service
 public class UsersService  {
 
 	@Autowired
-	private UsersRepo repo;
+	private UsersRepo userRepo;
+	
+	@Autowired
+	private OfficesRepo officeRepo;
 	
 	public List<Users> findAll() {
 		
-		return repo.findAll();
+		return userRepo.findAll();
 	}
 
 
 	public Users getOne(Long id) {
 		
-		return repo.getOne(id);
+		return userRepo.getOne(id);
 	}
 
 	public Users findById(Long id) {
 		
-			return repo.findById(id).get();
+			return userRepo.findById(id).get();
 		
 	}
 
 	public boolean existsById(Long id) {
 
-		return repo.existsById(id);
+		return userRepo.existsById(id);
 	}
 
 	public long count() {
-		List<Users> officeCount = repo.findAll();
+		List<Users> usersCount = userRepo.findAll();
 		
-		return officeCount.size();
+		return usersCount.size();
 	}
 
 	public void deleteById(Long id) {
 		
 		if(existsById(id))
-			repo.deleteById(id);
+			userRepo.deleteById(id);
 
 	}
-	public void save(Users newUser) {
-		repo.save(newUser);
+	public void save(Users newUser, Integer id) {
+	
+		//get permissions and assign
+        
+        Offices office = null;
+        Optional <Offices> o = officeRepo.findById(id);
+		
+        if(!o.isPresent()) {
+        	
+        	System.out.println("Office id dont exist");
+        	
+        }else {
+        	
+        	office = o.get();
+        	System.out.println("Set office: "+office);
+        }
+	
+		//office.getUsers().add(newUser);
+        office.add(newUser);
+		System.out.println("Set office after add user: "+office);
+		
+		//newUser.setOffice(office);
+		System.out.println("Set users after add office: "+newUser);
+		officeRepo.save(office);
+		userRepo.save(newUser);
 		
 	}
 	

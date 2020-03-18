@@ -173,7 +173,7 @@
 					<thead>
 						<tr>
 							<th>User ID</th>
-							<th>Office ID</th>
+						<!--  	<th>Office ID</th>-->
 							<th>En Name</th>
 							<th>Ar Name</th>
 							<th>Email</th>
@@ -191,7 +191,7 @@
 						<tr th:each="user: ${listUsers}">
 
 							<td th:text="${user.userId}"></td>
-							<td th:text="${user.officeId}"></td>				
+							<!--  <td th:text="${user.office.officeId}"></td>		-->		
 							<td th:text="${user.userNameEn}"></td>
 							<td th:text="${user.userNameAr}"></td>
 							<td th:text="${user.userEmail}"></td>

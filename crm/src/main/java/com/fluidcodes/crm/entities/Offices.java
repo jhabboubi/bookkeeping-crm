@@ -1,6 +1,7 @@
 package com.fluidcodes.crm.entities;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="offices")
@@ -30,7 +33,7 @@ public class Offices {
 	private Integer officeId;
 	
 	
-	@Column(name="officeName")
+	@Column(name="officeName",unique=true)
 	@NotNull(message="Field is required!")
 	@Size(min=2, max=50,message = "Field must be more than two letters!")
 	private String officeName;
@@ -77,8 +80,8 @@ public class Offices {
 	private List<Accounts> accounts;
 	
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="officeId")
+	@OneToMany( mappedBy = "office",fetch=FetchType.EAGER,cascade= CascadeType.ALL)
+	@JsonIgnore
 	private List<Users> users;
 	
 	
@@ -87,8 +90,48 @@ public class Offices {
 	public Offices() {
 		System.out.println("Offices default constructor called!");
 	}
+	
+	
+	
+
+	/**
+	 * @param officeName
+	 * @param officeAddressLineOne
+	 * @param officeAddressLineTwo
+	 * @param officeCity
+	 * @param officeZipCode
+	 * @param officeTel
+	 * @param officeCountry
+	 */
+	public Offices(
+			@NotNull(message = "Field is required!") @Size(min = 2, max = 50, message = "Field must be more than two letters!") String officeName,
+			@NotNull(message = "Field is required!") @Size(min = 2, max = 100, message = "Field must be more than two letters!") String officeAddressLineOne,
+			@NotNull(message = "Field is required!") @Size(min = 2, max = 100, message = "Field must be more than two letters!") String officeAddressLineTwo,
+			@NotNull(message = "Field is required!") @Size(min = 2, max = 50, message = "Field must be more than two letters!") String officeCity,
+			@NotNull(message = "Field is required!") @Pattern(regexp = "^\\d{5}$", message = "Five numeric digits only!") String officeZipCode,
+			@NotNull(message = "Field is required!") @Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$", message = "Allows 7,10,11# optional hyphens") String officeTel,
+			@NotNull(message = "Field is required!") @Size(min = 2, max = 50, message = "Field must be more than two letters!") String officeCountry) {
+		this.officeName = officeName;
+		this.officeAddressLineOne = officeAddressLineOne;
+		this.officeAddressLineTwo = officeAddressLineTwo;
+		this.officeCity = officeCity;
+		this.officeZipCode = officeZipCode;
+		this.officeTel = officeTel;
+		this.officeCountry = officeCountry;
+	}
 
 
+
+
+	//convenince method for bi-directional relationship
+	
+	public void add(Users tempUser) {
+		if(users == null) {
+			users = new ArrayList<>();
+		}
+		users.add(tempUser);
+		tempUser.setOffice(this);
+	}
 	
 
 	
@@ -173,14 +216,23 @@ public class Offices {
 		this.users = users;
 	}
 
+
+
+
 	@Override
 	public String toString() {
 		return "Offices [officeId=" + officeId + ", officeName=" + officeName + ", officeAddressLineOne="
 				+ officeAddressLineOne + ", officeAddressLineTwo=" + officeAddressLineTwo + ", officeCity=" + officeCity
 				+ ", officeZipCode=" + officeZipCode + ", officeTel=" + officeTel + ", officeCountry=" + officeCountry
-				+ ", accounts=" + accounts + ", users=" + users + "]";
+				;
 	}
 
+
+
+
+	
+
+	
 
 	
 	

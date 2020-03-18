@@ -3,9 +3,13 @@ package com.fluidcodes.crm.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,10 +31,13 @@ public class Users {
 	private Long userId;
 	
 	
-	@Column(name="officeId")	
-	@NotNull(message="Field is required!")
-	private Integer officeId;
+	//@Column(name="officeId")	
+	//@NotNull(message="Field is required!")
+	//private Integer officeId;
 	
+	@ManyToOne(fetch=FetchType.EAGER,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JoinColumn(name = "officeId")
+	private Offices office;
 	
 	@Column(name="userNameEn")
 	@NotNull(message="Field is required!")
@@ -97,13 +104,7 @@ public class Users {
 		this.userId = userId;
 	}
 
-	public Integer getOfficeId() {
-		return officeId;
-	}
-
-	public void setOfficeId(Integer officeId) {
-		this.officeId = officeId;
-	}
+	
 
 	public String getUserNameEn() {
 		return userNameEn;
@@ -195,9 +196,28 @@ public class Users {
 
 
 
+	
+
+
+
+
+	public Offices getOffice() {
+		return office;
+	}
+
+
+
+
+	public void setOffice(Offices office) {
+		this.office = office;
+	}
+
+
+
+
 	@Override
 	public String toString() {
-		return "Users [userId=" + userId + ", officeId=" + officeId + ", userNameEn=" + userNameEn + ", userNameAr="
+		return "Users [userId=" + userId + ", office=" + office + ", userNameEn=" + userNameEn + ", userNameAr="
 				+ userNameAr + ", userIdRenewalDateGorg=" + userIdRenewalDateGorg + ", userIdRenewalDateHijri="
 				+ userIdRenewalDateHijri + ", userEmail=" + userEmail + ", userMobile=" + userMobile + ", userPass="
 				+ userPass + ", userImgUrl=" + userImgUrl + ", userRole=" + userRole + "]";

@@ -129,15 +129,13 @@
 
 
 				<div class="input-field col s12 m12 l6">
-					<select th:field="${newUser.officeId}">
-						<option th:each="officesOption: ${listOfficesAva}"
+					<select th:field="${off.officeId}">
+						<option th:each="officesOption : ${listOfficesAva}"
 							th:value="${officesOption.officeId}"
 							th:text="${officesOption.officeName}" />
 
 					</select> <label>Offices</label>
-					<span
-						th:if="${#fields.hasErrors('newUser.officeId')}"
-						th:errors="*{newUser.officeId}" class="error">Name Error</span>
+					
 				</div>
 
 

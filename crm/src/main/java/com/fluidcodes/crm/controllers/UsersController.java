@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
 import com.fluidcodes.crm.services.OfficesService;
@@ -31,50 +32,60 @@ public class UsersController {
 		this.usersservice=usersservice;
 	}
 	
-//	@RequestMapping("userlistadmin")
-//	public String listUsers(Model model) {
-//		List<Users> listUsers = service.findAll();
-//		model.addAttribute("listUsers", listUsers);
-//		
-//		return"admin";
-//	}
+
 	
 	@RequestMapping("newuser")
-	public String adduser(Model modelUsers, Model modelOffices) {
-		List<Offices> officeInfo = officesservice.findAll();
+	public String adduser(Model modelUsers, Model modelOffices, Model office) {
 		Users newUser = new Users();
+		System.out.println("new user before add"+newUser);
+		List<Offices> officeInfo = officesservice.findAll();
+		
+		
+		
 		
 		modelOffices.addAttribute("listOfficesAva",officeInfo);
 		modelUsers.addAttribute("newUser", newUser);
 		
+		
+		
+		Offices off = new Offices();
+		off.setOfficeId(1);
+		office.addAttribute("off", off);
+		System.out.println("off id "+off.getOfficeId());
+		officesservice.findById(off.getOfficeId());
+		System.out.println("new user after  add"+newUser);
 		
 		return "userform";
 	}
 	
 	
 	@RequestMapping("edituser")
-	public String editUser(@RequestParam("userId") Long userId, Model model) {
+	public String editUser(@RequestParam("userId") Long userId, Model modelUsers, Model modelOffices) {
+		List<Offices> officeInfo = officesservice.findAll();
 		
 		Users editUser = usersservice.findById(userId);
 		System.out.println("ID for User Edit: "+userId);
 		System.out.println("On User edit form"+editUser);
-		model.addAttribute("newUser", editUser);
+		modelOffices.addAttribute("listOfficesAva",officeInfo);
+		modelUsers.addAttribute("newUser", editUser);
 		
 		return "userform";
 	}
 	
 	@PostMapping("saveuser")
-	public String saveUser(@Valid @ModelAttribute("newUser") Users newUser, BindingResult bind) {
-
+	public String saveUser(@Valid @ModelAttribute("newUser") Users newUser, BindingResult bind, Model modelOffices, @ModelAttribute("off") Offices off) {
+		System.out.println(newUser);
 		if(bind.hasErrors()) {
 			System.out.println("error count:"+bind.getErrorCount());
+			List<Offices> officeInfo = officesservice.findAll();
+			modelOffices.addAttribute("listOfficesAva",officeInfo);
+			System.out.println("Error after submit button: "+ newUser);
 			return "userform";
 		}
 		
-		System.out.println("after submit button: "+ newUser);
+	
 		
-		usersservice.save(newUser);
-		
+		usersservice.save(newUser, off.getOfficeId());
 		
 		return "redirect:/admin";
 	}
