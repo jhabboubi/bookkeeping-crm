@@ -169,7 +169,7 @@
 					<thead>
 						<tr>
 							<th>User ID</th>
-						<!--  	<th>Office ID</th>-->
+							<th>Office ID</th>
 							<th>En Name</th>
 							<th>Ar Name</th>
 							<th>Email</th>
@@ -187,7 +187,7 @@
 						<tr th:each="user: ${listUsers}">
 
 							<td th:text="${user.userId}"></td>
-							<!--  <td th:text="${user.office.officeId}"></td>		-->		
+							<td th:text="${user.office.officeId}"></td>			
 							<td th:text="${user.userNameEn}"></td>
 							<td th:text="${user.userNameAr}"></td>
 							<td th:text="${user.userEmail}"></td>
@@ -241,7 +241,7 @@
 					<thead>
 						<tr>
 							<th>Account ID</th>
-						<!--	<th>Office ID</th>  -->
+							<th>Office ID</th>
 							<th>Bank Name</th>
 							<th>Iban</th>
 							<th>Swift Code</th>
@@ -256,7 +256,7 @@
 						<tr th:each="account: ${listAccounts}">
 
 							<td th:text="${account.accountId}"></td>
-						<!--	<td th:text="${account.office.officeId}"></td>	-->
+							<td th:text="${account.office.officeId}"></td>
 							<td th:text="${account.bankName}"></td>
 							<td th:text="${account.accountIban}"></td>
 							<td th:text="${account.swiftCode}"></td>
