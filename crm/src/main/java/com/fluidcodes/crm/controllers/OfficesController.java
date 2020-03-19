@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fluidcodes.crm.entities.Accounts;
 import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
+import com.fluidcodes.crm.services.AccountsService;
 import com.fluidcodes.crm.services.OfficesService;
 import com.fluidcodes.crm.services.UsersService;
 
@@ -25,19 +27,24 @@ public class OfficesController {
 	private OfficesService officesservice;
 	@Autowired
 	private UsersService usersservice;
+	@Autowired
+	private AccountsService accountsservice;
 	
 	public OfficesController(OfficesService officeservice) {
 		this.officesservice=officeservice;
 	}
 	
 	@RequestMapping("admin")
-	public String listOffices(Model modelOffices,Model modelUsers) {
+	public String listOffices(Model modelOffices,Model modelUsers, Model modelAccounts) {
 		List<Offices> listOffices = officesservice.findAll();
 		modelOffices.addAttribute("listOffices", listOffices);
 		
 		
 		List<Users> listUsers = usersservice.findAll();
 		modelUsers.addAttribute("listUsers", listUsers);
+		
+		List<Accounts> listAccounts = accountsservice.findAll();
+		modelAccounts.addAttribute("listAccounts", listAccounts);
 		
 
 		return"admin";

@@ -1,0 +1,264 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- font awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	crossorigin="anonymous">
+<!-- Materialize from google version 1.0.0 -->
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- My style sheet-->
+<link rel="stylesheet" href="../css/mystylesheet.css">
+
+
+<link rel="shortcut icon" href="../images/favicon-fc.png" />
+<style>
+</style>
+
+
+
+
+<title>MS Bookkeeping</title>
+
+
+
+
+</head>
+
+<body>
+
+	<header>
+		<nav class="nav-wraper grey lighten-2 z-depth-2">
+			<div class="container">
+				<!-- <a href="index.html" class="brand-logo "><span class="hide-on-large-only black-text">Fluid Codes</span></a> -->
+
+				<a th:href="@{/ }" class="brand-logo"> <img
+					class="responsive-img" src="../images/logo.png"
+					alt="fluid codes logo">
+				</a> <a th:href="@{/ }" class="sidenav-trigger"
+					data-target="mobilelinks"> <i class="material-icons"> <span
+						class="black-text"> menu </span>
+
+				</i>
+				</a>
+
+				<ul class="right hide-on-med-and-down">
+					<li><a class="thenav" th:href="@{/ }">Home</a></li>
+					<li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
+					<li><a class="thenav" th:href="@{income}">Income</a></li>
+					<li><a class="thenav" th:href="@{reports}">Reports</a></li>
+					<li><a class="thenav" th:href="@{settings}">Settings</a></li>
+					<li><a class="thenav" th:href="@{admin}">Admin</a></li>
+					<li><a href="#" class="btn-floating grey darken-1 z-depth-0 ">
+							<i class="material-icons">notifications </i>
+					</a></li>
+					<li><span class="badge black-text red new">5</span></li>
+				</ul>
+
+
+			</div>
+		</nav>
+
+		<!--Mobile navbar only with js script at bottom ID 1-->
+		<ul class="sidenav" id="mobilelinks">
+
+			<li><a class="thenav" th:href="@{/ }">Home</a></li>
+			<li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
+			<li><a class="thenav" th:href="@{income}">Income</a></li>
+			<li><a class="thenav" th:href="@{reports}">Reports</a></li>
+			<li><a class="thenav" th:href="@{settings}">Settings</a></li>
+			<li><a class="thenav" th:href="@{admin}">Admin</a></li>
+
+		</ul>
+
+	</header>
+	<div class="container z-depth-2">
+
+		<h1 class="flow-text center" style="padding-top: 10px;">Ms
+			Bookkeeping</h1>
+
+
+
+		<div class="row">
+			<div class="col s12 m12 l12" style="background: white;">
+				<h1 class="flow-text">Account Form</h1>
+			</div>
+
+		</div>
+
+
+		<div class="row">
+
+			<form th:action="@{/saveaccount}" method="post"
+				class="col s12 m12 l12">
+
+
+				<div class="input-field col s12 m12 l6">
+
+					<input id="accountId" th:field="${newAccount.accountId}" type="text"
+						class="validate" /> <label for="accountId">Account ID</label> <span
+						th:if="${#fields.hasErrors('newAccount.accountId')}"
+						th:errors="*{newAccount.accountId}" class="error">Name Error</span>
+				</div>
+
+
+				<div class="input-field col s12 m12 l6">
+					<select th:field="${off.officeId}">
+						<option th:each="officesOption : ${listOfficesAva}"
+							th:value="${officesOption.officeId}"
+							th:text="${officesOption.officeName}" />
+
+					</select> <label>Offices</label>
+
+				</div>
+
+
+	<div class="input-field col s12 m12 l6">
+
+					<input id="bankName" th:field="${newAccount.bankName}" type="text"
+						class="validate" /> <label for="bankName">Bank Name</label> <span
+						th:if="${#fields.hasErrors('newAccount.bankName')}"
+						th:errors="*{newAccount.bankName}" class="error">Name Error</span>
+				</div>
+				
+				
+				<div class="input-field col s12 m12 l6">
+
+					<input id="accountIban" th:field="${newAccount.accountIban}" type="text"
+						class="validate" /> <label for="accountIban">Iban</label> <span
+						th:if="${#fields.hasErrors('newAccount.accountIban')}"
+						th:errors="*{newAccount.accountIban}" class="error">Name Error</span>
+				</div>
+				
+					<div class="input-field col s12 m12 l6">
+
+					<input id="swiftCode" th:field="${newAccount.swiftCode}" type="text"
+						class="validate" /> <label for="swiftCode">Swift Code</label> <span
+						th:if="${#fields.hasErrors('newAccount.swiftCode')}"
+						th:errors="*{newAccount.swiftCode}" class="error">Name Error</span>
+				</div>
+				
+						<div class="input-field col s12 m12 l6">
+
+					<input id="balance" th:field="${newAccount.balance}" type="text"
+						class="validate" /> <label for="balance">Balance</label> <span
+						th:if="${#fields.hasErrors('newAccount.balance')}"
+						th:errors="*{newAccount.balance}" class="error">Name Error</span>
+				</div>
+		
+
+
+
+			
+
+				<div>
+					<button class="btn waves-effect waves-light col s12 m12 l12 "
+						type="submit" name="action">
+						Submit <i class="material-icons right">send</i>
+					</button>
+
+				</div>
+
+			</form>
+		</div>
+
+
+
+
+
+
+	</div>
+
+	<footer class="page-footer red">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m12 l12 red" style="border: 0px solid red;">
+
+				</div>
+
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container black-text">
+				© 2020 Fluid Codes. All rights reserved. <a href="#terms"
+					class="modal-trigger"> Terms & Conditions </a>
+				<div class="modal" id="terms">
+					<div class="modal-content">
+						<h5>CORPORATE WEBSITE – PRIVACY STATEMENT</h5>
+						Fluid Codes LTD - respects your privacy and it is our endeavor and
+						objective to provide excellent quality service to all our
+						employees. This privacy statement has been formulated to help you
+						understand the nature of the information we collect from you when
+						you visit our website and how this personal information will be
+						treated by us.
+
+
+						<h5>Browsing</h5>
+						Whenever you visit websites, the server used by our web Host will
+						make a record of your IP Address, the date and time of your visit,
+						the type of Internet Browser you use and the URL of any web site
+						which referred you to our web site.
+
+
+
+						<h5>Disclosure of Information</h5>
+						Fluid Codes LTD - will maintain at all times the privacy and
+						confidentiality of all personal information collected. Such
+						information may only be disclosed when required by law or when we
+						believe that such action is necessary or desirable to provide
+						products and services, or technical support. Disclosure may only
+						be made upon an order from a Judicial or Regulatory Authority. We
+						will not sell, trade, rent or release any information to any third
+						party outside Fluid Codes LTD, its business divisions or its
+						subsidiary companies, without your permission unless it is done on
+						an aggregated basis for analytical purposes .
+
+						<h5>Privacy Policy Changes</h5>
+						We reserve the right to change this Privacy Policy Terms and
+						Conditions as and when necessary and appropriate.
+
+						<h5>Conclusion</h5>
+						Your privacy concerns are important to us. We hope this policy
+						statement has been helpful in conveying this to you.
+						<div class="modal-footer left">
+							<a href="#"
+								class="modal-close btn-small waves-effect waves-light-3 red">
+								Agree & Close </a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	</div>
+	<!--  container -->
+	<!--Load jquery before any other library-->
+	<!-- jQuery JavaScript Library v3.4.1|Download the uncompressed, development jQuery 3.4.1 -->
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+		type="text/javascript"> </script>
+	<!-- Compiled and minified JavaScript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	<!-- script for mobile side menu ID 1-->
+	<script>
+$(document).ready(function(){
+$('.sidenav').sidenav();
+$('.modal').modal();
+$('select').formSelect();
+});
+</script>
+
+</body>
+</html>

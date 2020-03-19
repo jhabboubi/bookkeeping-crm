@@ -11,7 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -75,8 +75,8 @@ public class Offices {
 	private String officeCountry; 
 	
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="officeId")
+	@OneToMany(mappedBy = "office",fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JsonIgnore
 	private List<Accounts> accounts;
 	
 	
@@ -132,6 +132,17 @@ public class Offices {
 		users.add(tempUser);
 		tempUser.setOffice(this);
 	}
+	
+	//convenince method for bi-directional relationship
+	
+	public void add(Accounts tempAccount) {
+		if(accounts == null) {
+			accounts = new ArrayList<>();
+		}
+		accounts.add(tempAccount);
+		tempAccount.setOffice(this);
+	}
+	
 	
 
 	
