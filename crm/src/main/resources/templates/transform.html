@@ -106,68 +106,93 @@
           
         </div>-->
 
+				<!-- <div class="input-field col s12 m12 l6">
+
+					<input  id="transId" th:field="${newTrans.transId}" type="text"
+						class="validate" readonly="readonly" /> <label for="transId">ID</label>
+					<span th:if="${#fields.hasErrors('newTrans.transId')}"
+						th:errors="*{newTrans.transId}" class="error">Name Error</span>
+				</div> -->
+
 				<div class="input-field col s12 m12 l6">
 
-					<input id="transId" th:field="${newTrans.transId}" type="text"
-						class="validate" readonly="readonly" /> <label for="transId">ID</label> <span
-						th:if="${#fields.hasErrors('newTrans.transId')}"
-						th:errors="*{newTrans.transId}" class="error">Name Error</span>
+					<input disabled id="transDateCreate"
+						th:text="${#dates.format(newTrans.transDateCreate, 'dd-MMM-yyyy HH:mm a')}"
+						type="text" class="validate" /> <label
+						for="transDateCreate">Date Create</label>
+				</div>
+
+				<div class="input-field col s12 m12 l6">
+
+					<input disabled id="transDateUpdated"
+						th:text="${#dates.format(newTrans.transDateUpdated, 'dd-MMM-yyyy HH:mm a')}"
+						type="text" class="validate"  /> <label
+						for="transDateUpdated">Date Updated</label>
 				</div>
 
 
 
 
-			  	<div class="input-field col s12 m12 l6">
+				<div class="input-field col s12 m12 l6">
 					<select th:field="${acc.accountId}">
 						<option th:each="accountsOption : ${listAccountsAva}"
 							th:value="${accountsOption.accountId}"
 							th:text="|${accountsOption.accountId} -> ${accountsOption.balance} SAR|" />
 
 					</select> <label>Accounts</label>
-					
+
 				</div>
 
-<div class="input-field col s12 m12 l6">
-
-					<input id="transDescription" th:field="${newTrans.transDescription}" type="text"
-						class="validate"  /> <label for="transDescription">Description</label> <span
-						th:if="${#fields.hasErrors('newTrans.transDescription')}"
-						th:errors="*{newTrans.transDescription}" class="error">Name Error</span>
-				</div>
-				
 				<div class="input-field col s12 m12 l6">
 
-					<input id="transAmount" th:field="${newTrans.transAmount}" type="text"
-						class="validate"  /> <label for="transAmount">Amount</label> <span
-						th:if="${#fields.hasErrors('newTrans.transAmount')}"
-						th:errors="*{newTrans.transAmount}" class="error">Name Error</span>
+					<input id="transDescription"
+						th:field="${newTrans.transDescription}" type="text"
+						class="validate" /> <label for="transDescription">Description</label>
+					<span th:if="${#fields.hasErrors('newTrans.transDescription')}"
+						th:errors="*{newTrans.transDescription}" class="error">Name
+						Error</span>
 				</div>
-				
-				
+
 				<div class="input-field col s12 m12 l6">
 
-					<input id="transMethod" th:field="${newTrans.transMethod}" type="text"
-						class="validate"  /> <label for="transMethod">Method</label> <span
-						th:if="${#fields.hasErrors('newTrans.transMethod')}"
-						th:errors="*{newTrans.transMethod}" class="error">Name Error</span>
-				</div>
-			
-			
-							<div class="input-field col s12 m12 l6">
-				
-				 <label>
-				 
-        <input type="checkbox" name="transIsCredit" id="transIsCredit" class="filled-in" th:checked="${newTrans.transIsCredit}" />
-        <span>Credit</span>
-      </label>
+					<input id="transAmount" th:field="${newTrans.transAmount}"
+						type="text" class="validate" /> <label for="transAmount">Amount</label>
+					<span th:if="${#fields.hasErrors('newTrans.transAmount')}"
+						th:errors="*{newTrans.transAmount}" class="error">Name
+						Error</span>
 				</div>
 
+
+				<div class="input-field col s12 m12 l6">
+
+					<input id="transMethod" th:field="${newTrans.transMethod}"
+						type="text" class="validate" /> <label for="transMethod">Method</label>
+					<span th:if="${#fields.hasErrors('newTrans.transMethod')}"
+						th:errors="*{newTrans.transMethod}" class="error">Name
+						Error</span>
+				</div>
+
+
+				<div class="input-field col s12 m12 l12">
+				
+				
+					<label> 
+					<input type="checkbox"
+						name="transIsCredit" id="transIsCredit" class="filled-in"
+						th:checked="${newTrans.transIsCredit}" /> 
+						<span>Credit</span>
+				
+						</label> 
+				</div>
+				<div class="input-field col s12 m12 l12">
+				
+</div>
 
 
 
 
 				<div>
-					<button class="btn waves-effect waves-light col s12 m12 l12 "
+					<button class="btn waves-effect waves-light col s2 m2 l2 "
 						type="submit" name="action">
 						Submit <i class="material-icons right">send</i>
 					</button>

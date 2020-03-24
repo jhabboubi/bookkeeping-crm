@@ -93,7 +93,7 @@
 		<!--  List Offices Begin -->
 		<div class="row">
 			<div class="col s12 m12 l12 xl12" style="background: #fff;">
-				<h3 class="flow-text center">Expenses</h3>
+				<h3 class="flow-text center">Income</h3>
 			</div>
 
 		</div>
@@ -111,8 +111,8 @@
 						<tr>
 							<th>ID</th>
 							<th>Date Created</th>
-							<!-- <th>Date Updated</th> -->
-							<th>Account ID</th>
+<!-- 							<th>Date Updated</th>
+ -->							<th>Account ID</th>
 							<th>Description</th>
 							<th>Amount</th>
 							<th>Method</th>
@@ -125,14 +125,14 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="expense: ${listExpenses}">
-							<td th:text="${expense.transId}"></td>
-							<td th:text="${#dates.format(expense.transDateCreate, 'dd-MMM-yyyy HH:mm a')}"></td>
-<!-- 							<td th:text="${#dates.format(expense.transDateUpdated, 'dd-MMM-yyyy HH:mm a')}"></td>
- -->							<td th:text="${expense.account.accountId}"></td>
-							<td th:text="${expense.transDescription}"></td>
-							<td th:text="${expense.transAmount}"></td>
-							<td th:text="${expense.transMethod}"></td>
+						<tr th:each="income: ${listIncome}">
+							<td th:text="${income.transId}"></td>
+							<td th:text="${#dates.format(income.transDateCreate, 'dd-MMM-yyyy HH:mm a')}"></td>
+<!-- 							<td th:text="${#dates.format(income.transDateUpdated, 'dd-MMM-yyyy HH:mm a')}"></td>
+ -->							<td th:text="${income.account.accountId}"></td>
+							<td th:text="${income.transDescription}"></td>
+							<td th:text="${income.transAmount}"></td>
+							<td th:text="${income.transMethod}"></td>
 							
 							
 							
@@ -143,9 +143,9 @@
 							</td>
 
 
-							<td><a th:href="@{/edittrans(transId=${expense.transId})}"><i
+							<td><a th:href="@{/edittrans(transId=${income.transId})}"><i
 									class="material-icons right">edit</i></a> <a
-								th:href="@{/deletetrans(transId=${expense.transId})}"
+								th:href="@{/deletetrans(transId=${income.transId})}"
 								onclick="return confirm('Are you sure you want to delete?');"><i
 									class="material-icons right">delete</i></a></td>
 

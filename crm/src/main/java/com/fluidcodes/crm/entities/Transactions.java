@@ -31,7 +31,6 @@ public class Transactions {
 	//fields
 	@Column(name="transDateCreate", nullable = false, updatable = false)
 	@CreationTimestamp
-
 	private Date transDateCreate;
 	
 	@Column(name="transDateUpdated")

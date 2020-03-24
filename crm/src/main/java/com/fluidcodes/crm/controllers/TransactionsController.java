@@ -49,6 +49,28 @@ public class TransactionsController {
 		return"expenses";
 	}
 	
+	
+	@RequestMapping("income")
+	public String listIncome(Model modelIncome) {
+		List<Transactions> listIncome = transservice.findAll();
+		for(int i=0;i<listIncome.size();i++) {
+			if(!listIncome.get(i).getTransIsCredit()) {
+				listIncome.remove(i);
+			}
+				
+		}
+		
+		modelIncome.addAttribute("listIncome", listIncome);
+		
+	
+		
+
+		return"income";
+	}
+	
+	
+	
+	
 	@RequestMapping("newtrans")
 	public String addTrans(Model modelTrans, Model modelAccounts, Model account) {
 		Transactions newTrans = new Transactions();
@@ -110,7 +132,9 @@ public class TransactionsController {
 		
 		transservice.save(newTrans, acc.getAccountId());
 		
-		
+		if(newTrans.getTransIsCredit()) 
+		return "redirect:/income";
+		else
 		return "redirect:/expenses";
 	}
 	

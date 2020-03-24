@@ -96,9 +96,11 @@ public class TransactionsService {
 
 	}
 
+	
+	// saving new or updating a transaction
 	public void save(Transactions newTrans, Long id) {
 
-		// get permissions and assign
+		// get account related to transaction and make sure it exist
 
 		Accounts account = null;
 		Optional<Accounts> a = accountRepo.findById(id);
@@ -120,18 +122,21 @@ public class TransactionsService {
 			System.out.println("account balacne:" + accBalance);
 			System.out.println("trans amount: " + transAmount);
 			System.out.println("value of iscredit:" + newTrans.getTransIsCredit());
-			
+		
+			//if the transaction is new 		
 		if (newTrans.getTransId() == null) {
+				//if iscredit is null or false meaning its an expense 
 			if (newTrans.getTransIsCredit() == null || newTrans.getTransIsCredit() == false) {
 				newTrans.setTransIsCredit(false);
+				// account balance - the expense
 				accBalance -= transAmount;
 				System.out.println("balance for expense after new trans" + accBalance);
 				account.setBalance(accBalance);
 
 			}
-
+			// if iscredit is true meaning its a credit
 			else if (newTrans.getTransIsCredit() == true) {
-
+				// account balance + income
 				accBalance += transAmount;
 				System.out.println("balance for income after new trans" + accBalance);
 				account.setBalance(accBalance);
@@ -140,22 +145,29 @@ public class TransactionsService {
 			
 
 			
-
+			// if editing transaction
 		} else {
+			// get old transaction from db 
 			Transactions oldTrans = transRepo.getOne(newTrans.getTransId());
 			double oldTransAmount = oldTrans.getTransAmount();
-			
-			if (newTrans.getTransIsCredit() == null || newTrans.getTransIsCredit() == false) {
+			//if transaction is credit field being updated is null meaning it was a credit and became a an expense
+			if (newTrans.getTransIsCredit() == null) {
 				
 				newTrans.setTransIsCredit(false);
 				
+				accBalance -= oldTransAmount;
+				accBalance -= transAmount;
+				System.out.println("balance for expense after edit trans" + accBalance);
+				account.setBalance(accBalance);
+				// if is credit is false meaning was an expense and still an expense
+			}else if(newTrans.getTransIsCredit() == false) {
 				accBalance += oldTransAmount;
 				accBalance -= transAmount;
 				System.out.println("balance for expense after edit trans" + accBalance);
 				account.setBalance(accBalance);
-
+				
 			}
-
+			// if is credit true meaning was a credit and still a credit
 			else if (newTrans.getTransIsCredit()==true) {
 				accBalance -= oldTransAmount;
 				accBalance += transAmount;
@@ -168,7 +180,7 @@ public class TransactionsService {
 
 		}
 		
-		
+		// save new or update transaction
 		account.add(newTrans);
 		System.out.println("Set accounts after add transaction: " + account);
 
