@@ -1,11 +1,25 @@
 package com.fluidcodes.crm.entities;
 
-import java.sql.Timestamp;
 
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
@@ -14,83 +28,117 @@ public class Attachments {
 
 	
 	//fields
-	@Column(name="attDateTime")
-	private Timestamp attDateTime;
+	@Column(name="attDateCreate")
+	@CreationTimestamp
+	private Date attDateCreate;
+	
+	@Column(name="attDateUpdated")
+	@UpdateTimestamp
+	private Date attDateUpdated;
+	
+	
 	@Id
 	@Column(name="attId")
-	private Integer attId;
-	@Column(name="transId")
-	private Integer transId;
-	@Column(name="attAttachment")
-	private String attAttachment;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long attId;
 	
-	public Attachments() {
-		
-	}
+	
+	
+	
+	@Column(name="attPath")
+	@NotNull(message="Field is required!")
+    private String attPath;
+	
+	
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JoinColumn(name = "transId")
+	private Transactions transaction;
+	
+	
+	public Attachments() {System.out.println("Attachments default constructor called");}
 
 
 	/**
-	 * @param attDateTime
+	 * @param attDateCreate
+	 * @param attDateUpdated
 	 * @param attId
-	 * @param transId
-	 * @param attAttachment
+	 * @param attPath
+	 * @param transaction
 	 */
-	public Attachments(Timestamp attDateTime, Integer attId, Integer transId, String attAttachment) {
-		this.attDateTime = attDateTime;
+	public Attachments(Date attDateCreate, Date attDateUpdated, Long attId,
+			@NotNull(message = "Field is required!") String attPath, Transactions transaction) {
+		this.attDateCreate = attDateCreate;
+		this.attDateUpdated = attDateUpdated;
 		this.attId = attId;
-		this.transId = transId;
-		this.attAttachment = attAttachment;
+		this.attPath = attPath;
+		this.transaction = transaction;
 	}
 
 
-	public Timestamp getAttDateTime() {
-		return attDateTime;
+	public Date getAttDateCreate() {
+		return attDateCreate;
 	}
 
 
-	public void setAttDateTime(Timestamp attDateTime) {
-		this.attDateTime = attDateTime;
+	public void setAttDateCreate(Date attDateCreate) {
+		this.attDateCreate = attDateCreate;
 	}
 
 
-	public Integer getAttId() {
+	public Date getAttDateUpdated() {
+		return attDateUpdated;
+	}
+
+
+	public void setAttDateUpdated(Date attDateUpdated) {
+		this.attDateUpdated = attDateUpdated;
+	}
+
+
+	public Long getAttId() {
 		return attId;
 	}
 
 
-	public void setAttId(Integer attId) {
+	public void setAttId(Long attId) {
 		this.attId = attId;
 	}
 
 
-	public Integer getTransId() {
-		return transId;
+	public String getAttPath() {
+		return attPath;
 	}
 
 
-	public void setTransId(Integer transId) {
-		this.transId = transId;
+	public void setAttPath(String attPath) {
+		this.attPath = attPath;
 	}
 
 
-	public String getAttAttachment() {
-		return attAttachment;
+	public Transactions getTransaction() {
+		return transaction;
 	}
 
 
-	public void setAttAttachment(String attAttachment) {
-		this.attAttachment = attAttachment;
+	public void setTransaction(Transactions transaction) {
+		this.transaction = transaction;
 	}
-
-
-
 
 
 	@Override
 	public String toString() {
-		return "Attachments [attDateTime=" + attDateTime + ", attId=" + attId + ", transId=" + transId
-				+ ", attAttachment=" + attAttachment + "]";
+		return "Attachments [attDateCreate=" + attDateCreate + ", attDateUpdated=" + attDateUpdated + ", attId=" + attId
+				+ ", attPath=" + attPath + ", transaction=" + transaction + "]";
 	}
+
+
+	
+	
+
+	
+	
+	
+	
 	
 	
 	

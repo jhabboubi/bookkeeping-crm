@@ -1,6 +1,7 @@
 package com.fluidcodes.crm.entities;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -51,14 +54,26 @@ public class Accounts {
 	private Double balance;
 	
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="accountId")
+	@OneToMany( mappedBy = "account",fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})	
+	@JsonIgnore
 	private List<Transactions> transactions;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name = "officeId")
 	private Offices office;
 	
+	
+	
+	//convenince method for bi-directional relationship
+	
+		public void add(Transactions tempTrans) {
+			if(transactions == null) {
+				transactions = new ArrayList<>();
+			}
+			transactions.add(tempTrans);
+			tempTrans.setAccount(this);
+	
+		}
 	//default constructor 
 
 	public Accounts() {

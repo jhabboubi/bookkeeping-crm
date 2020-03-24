@@ -1,49 +1,87 @@
 package com.fluidcodes.crm.entities;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="transactions")
 public class Transactions {
 
 	//fields
-	@Column(name="transDateTime")
-	private Timestamp transDateTime;
+	@Column(name="transDateCreate", nullable = false, updatable = false)
+	@CreationTimestamp
+
+	private Date transDateCreate;
+	
+	@Column(name="transDateUpdated")
+	@UpdateTimestamp
+	private Date transDateUpdated;
+	
+	
 	@Id
 	@Column(name="transId")
-	private Integer transId;
-	@Column(name="officeId")
-	private Integer officeId;
-	@Column(name="userId")
-	private BigDecimal userId;
-	@Column(name="accountId")
-	private BigDecimal accountId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long transId;
+
 	
-//	@Column(name="attId")
-//	@JoinColumn(name="attId", referencedColumnName="attId")
-//	private Integer attId;
 	@Column(name="transDescription")
+	@Size(min=2, max=100,message = "Field must be more than two letters!")
+	@NotNull(message="Field is required!")
 	private String transDescription;
+	
+	
 	@Column(name="transAmount")
+	@NotNull(message="Field is required!")
 	private Double transAmount;
+	
+	
 	@Column(name="transMethod")
 	private String transMethod;
-	@Column(name="transIsCredit")
+	
+	
+	@Column(name="transIsCredit", columnDefinition = "boolean default false")
 	private Boolean transIsCredit; 
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="transId")
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JoinColumn(name = "accountId")
+	private Accounts account;
+	
+	@OneToMany( mappedBy = "transaction",fetch=FetchType.LAZY,cascade= CascadeType.ALL)	
+	@JsonIgnore
 	private List<Attachments> attachments;
+	
+	
+	
+	//Convenience method for bi-directional relationship
+	
+		public void add(Attachments tempAtt) {
+			if(attachments == null) {
+				attachments = new ArrayList<>();
+			}
+			attachments.add(tempAtt);
+			tempAtt.setTransaction(this);
+		}
 	
 	// default constructor
 	
@@ -52,73 +90,54 @@ public class Transactions {
 	}
 
 	/**
-	 * @param transDateTime
+	 * @param transDateCreate
+	 * @param transDateUpdated
 	 * @param transId
-	 * @param officeId
-	 * @param userId
-	 * @param accountId
-	 * @param attId
 	 * @param transDescription
 	 * @param transAmount
 	 * @param transMethod
 	 * @param transIsCredit
+	 * @param account
+	 * @param attachments
 	 */
-	public Transactions(Timestamp transDateTime, Integer transId, Integer officeId, BigDecimal userId,
-			BigDecimal accountId, String transDescription, Double transAmount, String transMethod,
-			Boolean transIsCredit) {
-		this.transDateTime = transDateTime;
+	public Transactions(Date transDateCreate, Date transDateUpdated, Long transId,
+			@Size(min = 2, max = 100, message = "Field must be more than two letters!") @NotNull(message = "Field is required!") String transDescription,
+			@NotNull(message = "Field is required!") Double transAmount, String transMethod, Boolean transIsCredit,
+			Accounts account, List<Attachments> attachments) {
+		this.transDateCreate = transDateCreate;
+		this.transDateUpdated = transDateUpdated;
 		this.transId = transId;
-		this.officeId = officeId;
-		this.userId = userId;
-		this.accountId = accountId;
-		
 		this.transDescription = transDescription;
 		this.transAmount = transAmount;
 		this.transMethod = transMethod;
 		this.transIsCredit = transIsCredit;
+		this.account = account;
+		this.attachments = attachments;
 	}
 
-	public Timestamp getTransDateTime() {
-		return transDateTime;
+	public Date getTransDateCreate() {
+		return transDateCreate;
 	}
 
-	public void setTransDateTime(Timestamp transDateTime) {
-		this.transDateTime = transDateTime;
+	public void setTransDateCreate(Date transDateCreate) {
+		this.transDateCreate = transDateCreate;
 	}
 
-	public Integer getTransId() {
+	public Date getTransDateUpdated() {
+		return transDateUpdated;
+	}
+
+	public void setTransDateUpdated(Date transDateUpdated) {
+		this.transDateUpdated = transDateUpdated;
+	}
+
+	public Long getTransId() {
 		return transId;
 	}
 
-	public void setTransId(Integer transId) {
+	public void setTransId(Long transId) {
 		this.transId = transId;
 	}
-
-	public Integer getOfficeId() {
-		return officeId;
-	}
-
-	public void setOfficeId(Integer officeId) {
-		this.officeId = officeId;
-	}
-
-	public BigDecimal getUserId() {
-		return userId;
-	}
-
-	public void setUserId(BigDecimal userId) {
-		this.userId = userId;
-	}
-
-	public BigDecimal getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(BigDecimal accountId) {
-		this.accountId = accountId;
-	}
-
-
 
 	public String getTransDescription() {
 		return transDescription;
@@ -152,13 +171,34 @@ public class Transactions {
 		this.transIsCredit = transIsCredit;
 	}
 
+	public Accounts getAccount() {
+		return account;
+	}
+
+	public void setAccount(Accounts account) {
+		this.account = account;
+	}
+
+	public List<Attachments> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<Attachments> attachments) {
+		this.attachments = attachments;
+	}
+
 	@Override
 	public String toString() {
-		return "Transactions [transDateTime=" + transDateTime + ", transId=" + transId + ", officeId=" + officeId
-				+ ", userId=" + userId + ", accountId=" + accountId +  ", transDescription="
-				+ transDescription + ", transAmount=" + transAmount + ", transMethod=" + transMethod
-				+ ", transIsCredit=" + transIsCredit + "]";
+		return "Transactions [transDateCreate=" + transDateCreate + ", transDateUpdated=" + transDateUpdated
+				+ ", transId=" + transId + ", transDescription=" + transDescription + ", transAmount=" + transAmount
+				+ ", transMethod=" + transMethod + ", transIsCredit=" + transIsCredit + ", account=" + account + "]";
 	}
+
+	
+
+
+
+	
 	
 	
 	

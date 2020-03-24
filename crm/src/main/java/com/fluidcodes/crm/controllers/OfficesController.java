@@ -80,6 +80,7 @@ public class OfficesController {
 
 		if(bind.hasErrors()) {
 			System.out.println("error count:"+bind.getErrorCount());
+			System.out.println(bind.getFieldErrors());
 			return "officeform";
 		}
 		

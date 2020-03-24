@@ -81,6 +81,7 @@ public class AccountsController {
 		System.out.println(newAccount);
 		if(bind.hasErrors()) {
 			System.out.println("error count:"+bind.getErrorCount());
+			System.out.println(bind.getFieldErrors());
 			List<Offices> officeInfo = officesservice.findAll();
 			modelOffices.addAttribute("listOfficesAva",officeInfo);
 			System.out.println("Error after submit button: "+ newAccount);
