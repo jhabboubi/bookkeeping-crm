@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
 
     
@@ -54,6 +54,7 @@
     </a>
     
     <ul  class="right hide-on-med-and-down">
+    <li><a class="thenav" th:href="@{/ }"><span style="color:red" th:text="${currentUser.userNameEn}" /></a></li>
             <li><a class="thenav" th:href="@{/ }">Home</a></li>
         <li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
         <li><a class="thenav" th:href="@{income}">Income</a></li>
@@ -74,7 +75,8 @@
 
 <!--Mobile navbar only with js script at bottom ID 1-->
 <ul class="sidenav" id="mobilelinks">
-
+		
+		 <li><a class="thenav" th:href="@{/ }"><span style="color:red" th:text="${currentUser.userNameEn}" /></a></li>
         <li><a class="thenav" th:href="@{/ }">Home</a></li>
         <li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
         <li><a class="thenav" th:href="@{income}">Income</a></li>

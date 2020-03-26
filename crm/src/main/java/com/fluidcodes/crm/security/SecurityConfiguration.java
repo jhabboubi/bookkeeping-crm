@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		
 		http.authorizeRequests()
 		
-		.antMatchers("/admin/**","/expenses/**","/income/**","/newoffice/**","/editoffice/**","/deleteoffice/**","/saveuser/**","/edituser/**","/deleteuser/**","/newaccount/**","/editaccount/**","/saveaccount/**","/deleteaccount/**","/newtrans/**","/edittrans/**","/savetrans/**","/deletetrans/**").hasRole("ADMIN")
+		.antMatchers("/admin/**","/expenses/**","/income/**","/newoffice/**","/editoffice/**","/deleteoffice/**","/saveoffice/**","/newuser/**","/saveuser/**","/edituser/**","/deleteuser/**","/newaccount/**","/editaccount/**","/saveaccount/**","/deleteaccount/**","/newtrans/**","/edittrans/**","/savetrans/**","/deletetrans/**").hasRole("ADMIN")
 	
 		.antMatchers("/").hasAnyRole("ADMIN","EMPLOYEE")
 		.and()

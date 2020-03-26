@@ -46,6 +46,7 @@ public class OfficesController {
 		List<Accounts> listAccounts = accountsservice.findAll();
 		modelAccounts.addAttribute("listAccounts", listAccounts);
 		
+	
 
 		return"admin";
 	}
