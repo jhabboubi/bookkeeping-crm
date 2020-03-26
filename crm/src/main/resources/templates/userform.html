@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"  lang="en">
 <head>
 
 
@@ -52,36 +52,44 @@
 				</i>
 				</a>
 
-				<ul class="right hide-on-med-and-down">
-					<li><a class="thenav" th:href="@{/ }">Home</a></li>
-					<li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
-					<li><a class="thenav" th:href="@{income}">Income</a></li>
-					<li><a class="thenav" th:href="@{reports}">Reports</a></li>
-					<li><a class="thenav" th:href="@{settings}">Settings</a></li>
-					<li><a class="thenav" th:href="@{admin}">Admin</a></li>
-					        <li><a class="thenav" th:href="@{logout}">Logout</a></li>
-					<li><a href="#" class="btn-floating grey darken-1 z-depth-0 ">
-							<i class="material-icons">notifications </i>
-					</a></li>
-					<li><span class="badge black-text red new">5</span></li>
-				</ul>
+		<ul  class="right hide-on-med-and-down">
+    <li><span style="color: green" sec:authentication="name" /></li>
+            <li><a class="thenav" th:href="@{/ }">Home</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{expenses}">Expenses</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{income}">Income</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{reports}">Reports</a></li>
+        <li><a class="thenav" th:href="@{settings}">Settings</a></li>
+        
+         <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{admin}">Admin</a></li>
+        
+         <li><a class="thenav" th:href="@{logout}">Logout</a></li>
+        <li ><a href="#"class="btn-floating grey darken-1 z-depth-0 " >
+          <i class="material-icons" >notifications </i>
+        </a>
+        </li>
+        <li><span class="badge black-text red new">5</span></li>
+    </ul>
+    
+    
+</div>
+</nav>
 
+<!--Mobile navbar only with js script at bottom ID 1-->
+<ul class="sidenav" id="mobilelinks">
+		
+		 <li><a class="thenav" th:href="@{/ }"><span style="color: green" sec:authentication="name" /></a></li>
+            <li><a class="thenav" th:href="@{/ }">Home</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{expenses}">Expenses</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{income}">Income</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{reports}">Reports</a></li>
+        <li><a class="thenav" th:href="@{settings}">Settings</a></li>
+        
+         <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{admin}">Admin</a></li>
+        
+         <li><a class="thenav" th:href="@{logout}">Logout</a></li>
+         <li><a class="thenav" th:href="@{logout}">Logout</a></li>
 
-			</div>
-		</nav>
-
-		<!--Mobile navbar only with js script at bottom ID 1-->
-		<ul class="sidenav" id="mobilelinks">
-
-			<li><a class="thenav" th:href="@{/ }">Home</a></li>
-			<li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
-			<li><a class="thenav" th:href="@{income}">Income</a></li>
-			<li><a class="thenav" th:href="@{reports}">Reports</a></li>
-			<li><a class="thenav" th:href="@{settings}">Settings</a></li>
-			<li><a class="thenav" th:href="@{admin}">Admin</a></li>
-			        <li><a class="thenav" th:href="@{logout}">Logout</a></li>
-
-		</ul>
+</ul>
 
 	</header>
 	<div class="container z-depth-2">
