@@ -59,6 +59,7 @@
 					<li><a class="thenav" th:href="@{reports}">Reports</a></li>
 					<li><a class="thenav" th:href="@{settings}">Settings</a></li>
 					<li><a class="thenav" th:href="@{admin}">Admin</a></li>
+					        <li><a class="thenav" th:href="@{logout}">Logout</a></li>
 					<li><a href="#" class="btn-floating grey darken-1 z-depth-0 ">
 							<i class="material-icons">notifications </i>
 					</a></li>
@@ -78,6 +79,7 @@
 			<li><a class="thenav" th:href="@{reports}">Reports</a></li>
 			<li><a class="thenav" th:href="@{settings}">Settings</a></li>
 			<li><a class="thenav" th:href="@{admin}">Admin</a></li>
+			        <li><a class="thenav" th:href="@{logout}">Logout</a></li>
 
 		</ul>
 
@@ -202,8 +204,8 @@
 				
 				<div class="input-field col s12 m12 l6">
     <select th:field="*{newUser.userRole}">
-      <option value="EMPLOYEE">Employee</option>
-      <option value="ADMIN">Admin</option>
+      <option value="ROLE_EMPLOYEE">Employee</option>
+      <option value="ROLE_ADMIN">Admin</option>
     </select>
     <label>UserRole</label>
      <span th:if="${#fields.hasErrors('newUser.userRole')}"

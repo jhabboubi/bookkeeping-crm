@@ -82,6 +82,9 @@ public class Users {
 	@Column(name="userRole")
 	@NotNull(message="Field is required!")
 	private String userRole;
+	
+	@Column(name="userActive",  columnDefinition = "boolean default true" )
+	private Boolean userActive;
 
 	//default constructor
 	
@@ -211,12 +214,31 @@ public class Users {
 
 
 
+
+
+
+
+	public Boolean getUserActive() {
+		return userActive;
+	}
+
+
+
+
+	public void setUserActive(Boolean userActive) {
+		this.userActive = userActive;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Users [userId=" + userId + ", office=" + office + ", userNameEn=" + userNameEn + ", userNameAr="
 				+ userNameAr + ", userIdRenewalDateGorg=" + userIdRenewalDateGorg + ", userIdRenewalDateHijri="
 				+ userIdRenewalDateHijri + ", userEmail=" + userEmail + ", userMobile=" + userMobile + ", userPass="
-				+ userPass + ", userImgUrl=" + userImgUrl + ", userRole=" + userRole + "]";
+				+ userPass + ", userImgUrl=" + userImgUrl + ", userRole=" + userRole + ", userActive=" + userActive
+				+ "]";
 	}
 
 	

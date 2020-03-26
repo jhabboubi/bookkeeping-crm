@@ -32,6 +32,17 @@ public class UsersController {
 		this.usersservice=usersservice;
 	}
 	
+	 @GetMapping("/login")
+	    public String showLogin(Model model) {
+	        Users user = new Users();
+	        model.addAttribute("user", user);
+	      
+	        return "login";
+	    }
+
+	 
+
+	
 
 	
 	@RequestMapping("newuser")

@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org" lang="en">
 
 <head>
 
@@ -51,7 +51,7 @@
 
   <header>
     <div class="container">
-      <div class="row" style="padding-top: 150px;">
+      <div class="row" style="padding-top: 50px;">
         <div class="col s12 m12 l12">
 
           <img class="responsive-img mylogologin" src="../images/logo.png" />
@@ -70,20 +70,25 @@
 
     <div class="row">
 
-      <form th:action="@{/logout}" method="post" class="col s12 m12 l12">
-
+      <form th:action="@{/login/authenticate}" method="post" class="col s12 m12 l12">
+<div th:if="${param.error}" class="alert alert-error">    
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success"> 
+                    You have been logged out.
+                </div>
 
         <div class="input-field col s6 m6 l6">
 
-          <input id="username" type="text" class="validate">
-          <label for="username">Username</label>
+          <input id="userEmail" th:field="${user.userEmail}" type="text" class="validate">
+          <label for="userEmail">Username</label>
         </div>
     
 
 
     <div class="input-field col s6 m6 l6">
-      <input id="password" type="password" class="validate">
-      <label for="password">Password</label>
+      <input id="userPass" th:field="${user.userPass}" type="password" class="validate">
+      <label for="userPass">Password</label>
 
     </div>
 
