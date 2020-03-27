@@ -12,6 +12,9 @@ import com.fluidcodes.crm.dao.TransactionsRepo;
 import com.fluidcodes.crm.entities.Accounts;
 import com.fluidcodes.crm.entities.Transactions;
 
+/*
+ * Implementing methods from spring jpa
+ */
 @Service
 public class TransactionsService {
 
@@ -73,8 +76,7 @@ public class TransactionsService {
 		System.out.println("account balacne:" + accBalance);
 		System.out.println("trans amount: " + transAmount);
 		System.out.println("value of iscredit:" + trans.getTransIsCredit());
-		
-		
+
 		if (trans.getTransIsCredit() == null || trans.getTransIsCredit() == false) {
 			trans.setTransIsCredit(false);
 			accBalance += transAmount;
@@ -82,21 +84,17 @@ public class TransactionsService {
 			acc.setBalance(accBalance);
 
 		}
-		
-		else if(trans.getTransIsCredit() == true){
+
+		else if (trans.getTransIsCredit() == true) {
 			accBalance -= transAmount;
 			System.out.println("account delete credit" + accBalance);
 			acc.setBalance(accBalance);
 		}
 
-	
-		
-
 		accountRepo.save(acc);
 
 	}
 
-	
 	// saving new or updating a transaction
 	public void save(Transactions newTrans, Long id) {
 
@@ -115,17 +113,16 @@ public class TransactionsService {
 			System.out.println("Set account: " + account);
 		}
 
-		
-			System.out.println("account balance:" + account.getBalance() + "trans value" + newTrans.getTransAmount());
-			double accBalance = account.getBalance();
-			double transAmount = newTrans.getTransAmount();
-			System.out.println("account balacne:" + accBalance);
-			System.out.println("trans amount: " + transAmount);
-			System.out.println("value of iscredit:" + newTrans.getTransIsCredit());
-		
-			//if the transaction is new 		
+		System.out.println("account balance:" + account.getBalance() + "trans value" + newTrans.getTransAmount());
+		double accBalance = account.getBalance();
+		double transAmount = newTrans.getTransAmount();
+		System.out.println("account balacne:" + accBalance);
+		System.out.println("trans amount: " + transAmount);
+		System.out.println("value of iscredit:" + newTrans.getTransIsCredit());
+
+		// if the transaction is new
 		if (newTrans.getTransId() == null) {
-				//if iscredit is null or false meaning its an expense 
+			// if iscredit is null or false meaning its an expense
 			if (newTrans.getTransIsCredit() == null || newTrans.getTransIsCredit() == false) {
 				newTrans.setTransIsCredit(false);
 				// account balance - the expense
@@ -142,44 +139,39 @@ public class TransactionsService {
 				account.setBalance(accBalance);
 			}
 
-			
-
-			
 			// if editing transaction
 		} else {
-			// get old transaction from db 
+			// get old transaction from db
 			Transactions oldTrans = transRepo.getOne(newTrans.getTransId());
 			double oldTransAmount = oldTrans.getTransAmount();
-			//if transaction is credit field being updated is null meaning it was a credit and became a an expense
+			// if transaction is credit field being updated is null meaning it was a credit
+			// and became a an expense
 			if (newTrans.getTransIsCredit() == null) {
-				
+
 				newTrans.setTransIsCredit(false);
-				
+
 				accBalance -= oldTransAmount;
 				accBalance -= transAmount;
 				System.out.println("balance for expense after edit trans" + accBalance);
 				account.setBalance(accBalance);
 				// if is credit is false meaning was an expense and still an expense
-			}else if(newTrans.getTransIsCredit() == false) {
+			} else if (newTrans.getTransIsCredit() == false) {
 				accBalance += oldTransAmount;
 				accBalance -= transAmount;
 				System.out.println("balance for expense after edit trans" + accBalance);
 				account.setBalance(accBalance);
-				
+
 			}
 			// if is credit true meaning was a credit and still a credit
-			else if (newTrans.getTransIsCredit()==true) {
+			else if (newTrans.getTransIsCredit() == true) {
 				accBalance -= oldTransAmount;
 				accBalance += transAmount;
 				System.out.println("balance for income after edit trans" + accBalance);
 				account.setBalance(accBalance);
 			}
 
-		
-
-
 		}
-		
+
 		// save new or update transaction
 		account.add(newTrans);
 		System.out.println("Set accounts after add transaction: " + account);

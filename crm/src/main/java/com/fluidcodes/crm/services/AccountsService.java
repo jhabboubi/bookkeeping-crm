@@ -13,6 +13,10 @@ import com.fluidcodes.crm.dao.OfficesRepo;
 import com.fluidcodes.crm.entities.Accounts;
 import com.fluidcodes.crm.entities.Offices;
 
+/*
+ * Implementing methods from spring jpa
+ */
+
 @Service
 public class AccountsService {
 
@@ -58,7 +62,7 @@ public class AccountsService {
 
 	public void save(Accounts newAccount, Integer id) {
 
-		// get permissions and assign
+		// check if office exist
 
 		Offices office = null;
 		Optional<Offices> o = officeRepo.findById(id);
@@ -77,8 +81,9 @@ public class AccountsService {
 		// newUser.setOffice(office);
 		office.add(newAccount);
 		System.out.println("Set office after add account: " + office);
-
 		System.out.println("Set accounts after add office: " + newAccount);
+
+		// save bi directional
 		officeRepo.save(office);
 		accountRepo.save(newAccount);
 

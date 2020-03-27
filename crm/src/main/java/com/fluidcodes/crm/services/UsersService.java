@@ -12,11 +12,14 @@ import com.fluidcodes.crm.dao.UsersRepo;
 import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
 
+/*
+ * Implementing methods from spring jpa
+ */
 @Service
 public class UsersService {
-	
+
 	@Autowired
-    private BCryptPasswordEncoder encode;
+	private BCryptPasswordEncoder encode;
 
 	@Autowired
 	private UsersRepo userRepo;
@@ -77,13 +80,15 @@ public class UsersService {
 
 		// office.getUsers().add(newUser);
 		// newUser.setOffice(office);
+
+		// encode password before saving to db
 		String pass = newUser.getUserPass();
 		String encrPass = encode.encode(pass);
 		newUser.setUserPass(encrPass);
 		office.add(newUser);
 		System.out.println("Set office after add user: " + office);
-
 		System.out.println("Set users after add office: " + newUser);
+		// bi directional save
 		officeRepo.save(office);
 		userRepo.save(newUser);
 

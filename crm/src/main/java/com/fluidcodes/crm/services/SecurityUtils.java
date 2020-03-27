@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public final class SecurityUtils {
 
-	// method to find login user via email
+	// method to find login user via email (using sessions )
 	private SecurityUtils() {
 	}
 

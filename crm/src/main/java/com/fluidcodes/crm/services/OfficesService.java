@@ -2,34 +2,36 @@ package com.fluidcodes.crm.services;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
 import com.fluidcodes.crm.dao.OfficesRepo;
 import com.fluidcodes.crm.entities.Offices;
+
+/*
+ * Implementing methods from spring jpa
+ */
 @Service
-public class OfficesService  {
+public class OfficesService {
 
 	@Autowired
 	private OfficesRepo repo;
-	
+
 	public List<Offices> findAll() {
-		
+
 		return repo.findAll();
 	}
 
-
 	public Offices getOne(Integer id) {
-		
+
 		return repo.getOne(id);
 	}
 
 	public Offices findById(Integer id) {
-		
-			return repo.findById(id).get();
-		
+
+		return repo.findById(id).get();
+
 	}
 
 	public boolean existsById(Integer id) {
@@ -39,22 +41,20 @@ public class OfficesService  {
 
 	public long count() {
 		List<Offices> officeCount = repo.findAll();
-		
-		return (int)officeCount.size();
+
+		return (int) officeCount.size();
 	}
 
 	public void deleteById(Integer id) {
-		
-		if(existsById(id))
+
+		if (existsById(id))
 			repo.deleteById(id);
 
 	}
+
 	public void save(Offices newOffice) {
 		repo.save(newOffice);
-		
+
 	}
-	
-
-
 
 }

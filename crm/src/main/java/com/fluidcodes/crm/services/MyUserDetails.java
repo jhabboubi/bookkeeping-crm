@@ -17,8 +17,8 @@ import com.fluidcodes.crm.entities.Users;
 
 public class MyUserDetails implements UserDetails{
 
-	/**
-	 * 
+	/*
+	 * Implementing methods from user details 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long userId;
