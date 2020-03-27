@@ -17,7 +17,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name="users")
@@ -68,10 +70,9 @@ public class Users {
 	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$",message = "Allows 7,10,11# optional hyphens")
 	private String userMobile;
 	
-	
+	//@Pattern(regexp = "^[a-zA-Z]\\w{3,50}$", message="Begin with a letter, 4 minimum characters, and underscore may be used")
 	@Column(name="userPass")
 	@NotNull(message="Field is required!")
-	@Pattern(regexp = "^[a-zA-Z]\\w{3,14}$", message="Begin with a letter, 4-15 characters, and underscore may be used")
 	private String userPass;
 	
 	
@@ -138,8 +139,9 @@ public class Users {
 	}
 
 	
-
+	
 	public String getUserPass() {
+		
 		return userPass;
 	}
 

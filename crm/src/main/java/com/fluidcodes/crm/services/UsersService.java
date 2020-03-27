@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fluidcodes.crm.dao.OfficesRepo;
@@ -14,6 +14,9 @@ import com.fluidcodes.crm.entities.Users;
 
 @Service
 public class UsersService {
+	
+	@Autowired
+    private BCryptPasswordEncoder encode;
 
 	@Autowired
 	private UsersRepo userRepo;
@@ -74,6 +77,9 @@ public class UsersService {
 
 		// office.getUsers().add(newUser);
 		// newUser.setOffice(office);
+		String pass = newUser.getUserPass();
+		String encrPass = encode.encode(pass);
+		newUser.setUserPass(encrPass);
 		office.add(newUser);
 		System.out.println("Set office after add user: " + office);
 

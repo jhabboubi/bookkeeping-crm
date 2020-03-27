@@ -226,7 +226,7 @@
 				<div class="input-field col s12 m12 l6">
 
 					<input id="userPass" type="password" th:field="*{newUser.userPass}"
-						class="validate" /> <label for="userPass">Password</label> <span
+						class="validate" required="" aria-required="true" /> <label for="userPass">Password</label> <span
 						th:if="${#fields.hasErrors('newUser.userPass')}"
 						th:errors="*{newUser.userPass}" class="error">Name Error</span>
 				</div>

@@ -55,7 +55,11 @@ public class HomeController {
 	}
 	
 	
-	
+//	@RequestMapping("/error")
+//	public String showError() {
+//		return "redirect:/";
+//	}
+		
 	
 	@RequestMapping("/")
 	public String showUser( Model model) {
