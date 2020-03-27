@@ -1,4 +1,5 @@
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"  lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
 
@@ -52,44 +53,54 @@
 				</i>
 				</a>
 
-		<ul  class="right hide-on-med-and-down">
-    <li><span style="color: green" sec:authentication="name" /></li>
-            <li><a class="thenav" th:href="@{/ }">Home</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{expenses}">Expenses</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{income}">Income</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{reports}">Reports</a></li>
-        <li><a class="thenav" th:href="@{settings}">Settings</a></li>
-        
-         <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{admin}">Admin</a></li>
-        
-         <li><a class="thenav" th:href="@{logout}">Logout</a></li>
-        <li ><a href="#"class="btn-floating grey darken-1 z-depth-0 " >
-          <i class="material-icons" >notifications </i>
-        </a>
-        </li>
-        <li><span class="badge black-text red new">5</span></li>
-    </ul>
-    
-    
-</div>
-</nav>
+				<ul class="right hide-on-med-and-down">
+					<li><span style="color: green" sec:authentication="name" /></li>
+					<li><a class="thenav" th:href="@{/ }">Home</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+						th:href="@{expenses}">Expenses</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+						th:href="@{income}">Income</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+						th:href="@{reports}">Reports</a></li>
+					<li sec:authorize="hasRole('ROLE_EMPLOYEE')"><a class="thenav"
+						th:href="@{settings}">Settings</a></li>
 
-<!--Mobile navbar only with js script at bottom ID 1-->
-<ul class="sidenav" id="mobilelinks">
-		
-		 <li><a class="thenav" th:href="@{/ }"><span style="color: green" sec:authentication="name" /></a></li>
-            <li><a class="thenav" th:href="@{/ }">Home</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{expenses}">Expenses</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{income}">Income</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{reports}">Reports</a></li>
-        <li><a class="thenav" th:href="@{settings}">Settings</a></li>
-        
-         <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{admin}">Admin</a></li>
-        
-         <li><a class="thenav" th:href="@{logout}">Logout</a></li>
-         <li><a class="thenav" th:href="@{logout}">Logout</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+						th:href="@{admin}">Admin</a></li>
 
-</ul>
+					<li><a class="thenav" th:href="@{logout}">Logout</a></li>
+					<li><a href="#" class="btn-floating grey darken-1 z-depth-0 ">
+							<i class="material-icons">notifications </i>
+					</a></li>
+					<li><span class="badge black-text red new">5</span></li>
+				</ul>
+
+
+			</div>
+		</nav>
+
+		<!--Mobile navbar only with js script at bottom ID 1-->
+		<ul class="sidenav" id="mobilelinks">
+
+			<li><a class="thenav" th:href="@{/ }"><span
+					style="color: green" sec:authentication="name" /></a></li>
+			<li><a class="thenav" th:href="@{/ }">Home</a></li>
+			<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+				th:href="@{expenses}">Expenses</a></li>
+			<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+				th:href="@{income}">Income</a></li>
+			<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+				th:href="@{reports}">Reports</a></li>
+			<li sec:authorize="hasRole('ROLE_EMPLOYEE')"><a class="thenav"
+				th:href="@{settings}">Settings</a></li>
+
+			<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="thenav"
+				th:href="@{admin}">Admin</a></li>
+
+			<li><a class="thenav" th:href="@{logout}">Logout</a></li>
+
+
+		</ul>
 
 	</header>
 	<div class="container z-depth-2">
@@ -101,7 +112,9 @@
 
 		<div class="row">
 			<div class="col s12 m12 l12" style="background: white;">
-				<h1 class="flow-text"><span style="color: green" sec:authentication="name" />Settings</h1>
+				<h1 class="flow-text">
+					<span style="color: green" sec:authentication="name" /> Settings
+				</h1>
 			</div>
 
 		</div>
@@ -119,8 +132,8 @@
 				<div class="input-field col s12 m12 l6">
 
 					<input id="userId" th:field="${newUser.userId}" type="text"
-						class="validate" readonly="readonly" /> <label for="userId">User ID</label> <span
-						th:if="${#fields.hasErrors('newUser.userId')}"
+						class="validate" readonly="readonly" /> <label for="userId">User
+						ID</label> <span th:if="${#fields.hasErrors('newUser.userId')}"
 						th:errors="*{newUser.userId}" class="error">Name Error</span>
 				</div>
 
@@ -138,14 +151,12 @@
 
 
 
-			  	<div class="input-field col s12 m12 l6">
+				<div class="input-field col s12 m12 l6">
 					<select th:field="${off.officeId}">
-						<option 
-							th:value="${off.officeId}"
-							th:text="${off.officeName}" />
+						<option th:value="${off.officeId}" th:text="${off.officeName}" />
 
 					</select> <label>Offices</label>
-					
+
 				</div>
 
 
@@ -171,8 +182,8 @@
 				<div class="input-field col s12 m12 l6">
 
 					<input id="userEmail" th:field="*{newUser.userEmail}" type="text"
-						class="validate" readonly="readonly" /> <label for="userEmail">Email</label> <span
-						th:if="${#fields.hasErrors('newUser.userEmail')}"
+						class="validate" readonly="readonly" /> <label for="userEmail">Email</label>
+					<span th:if="${#fields.hasErrors('newUser.userEmail')}"
 						th:errors="*{newUser.userEmail}" class="error">Name Error</span>
 
 				</div>
@@ -207,31 +218,31 @@
 						th:errors="*{newUser.userRole}" class="error">Name Error</span>
 
 				</div>-->
-				
-				
-				
+
+
+
 				<div class="input-field col s12 m12 l6">
-    <select th:field="*{newUser.userRole}">
-      <option value="ROLE_EMPLOYEE">Employee</option>
-      <!--  <option value="ROLE_ADMIN">Admin</option>-->
-    </select>
-    <label>UserRole</label>
-     <span th:if="${#fields.hasErrors('newUser.userRole')}"
+					<select th:field="*{newUser.userRole}">
+						<option value="ROLE_EMPLOYEE">Employee</option>
+						<!--  <option value="ROLE_ADMIN">Admin</option>-->
+					</select> <label>UserRole</label> <span
+						th:if="${#fields.hasErrors('newUser.userRole')}"
 						th:errors="*{newUser.userRole}" class="error">Name Error</span>
-  </div>
-  
-  
-  
+				</div>
+
+
+
 
 				<div class="input-field col s12 m12 l6">
 
-					<input id="userPass" name="userPass" type="password" th:field="*{newUser.userPass}"
-						class="validate"  required="" aria-required="true" /> <label for="userPass">Password</label> <span
+					<input id="userPass" name="userPass" type="password"
+						th:field="*{newUser.userPass}" class="validate" required=""
+						aria-required="true" /> <label for="userPass">Password</label> <span
 						th:if="${#fields.hasErrors('newUser.userPass')}"
 						th:errors="*{newUser.userPass}" class="error">Name Error</span>
 				</div>
-				
-				
+
+
 
 				<div>
 					<button class="btn waves-effect waves-light col s12 m12 l12 "

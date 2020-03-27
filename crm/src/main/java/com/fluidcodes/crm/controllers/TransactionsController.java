@@ -1,5 +1,6 @@
 package com.fluidcodes.crm.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,13 +37,16 @@ public class TransactionsController {
 	@RequestMapping("expenses")
 	public String listExpenses(Model modelExpenses) {
 		// find all transaction that are expenses
-		List<Transactions> listExpenses = transservice.findAll();
-		for (int i = 0; i < listExpenses.size(); i++) {
-			if (listExpenses.get(i).getTransIsCredit()) {
-				listExpenses.remove(i);
+		List<Transactions> all = transservice.findAll();
+		List<Transactions> listExpenses = new ArrayList<Transactions>();
+		System.out.println("expense: "+all);
+		for (int i = 0; i < all.size(); i++) {
+			if (all.get(i).getTransIsCredit() == false) {
+				listExpenses.add(all.get(i));
 			}
 
 		}
+		System.out.println("after expense: "+listExpenses);
 		// load all expenses to listExpenses
 		modelExpenses.addAttribute("listExpenses", listExpenses);
 		// goto expenses.html
@@ -54,13 +58,18 @@ public class TransactionsController {
 	public String listIncome(Model modelIncome) {
 
 		// find all transaction that are income
-		List<Transactions> listIncome = transservice.findAll();
-		for (int i = 0; i < listIncome.size(); i++) {
-			if (!listIncome.get(i).getTransIsCredit()) {
-				listIncome.remove(i);
+		List<Transactions> all = transservice.findAll();
+		List<Transactions> listIncome = new ArrayList<Transactions>();
+		System.out.println(all.size());
+		System.out.println("income: "+all);
+		for (int i = 0; i < all.size(); i++) {
+			
+			if (all.get(i).getTransIsCredit()) {
+				listIncome.add(all.get(i));
 			}
 
 		}
+		System.out.println("after income: "+listIncome);
 		// load all expenses to listIncome
 		modelIncome.addAttribute("listIncome", listIncome);
 		// goto income.html
