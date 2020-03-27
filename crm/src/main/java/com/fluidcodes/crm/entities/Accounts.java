@@ -1,6 +1,5 @@
 package com.fluidcodes.crm.entities;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,69 +17,69 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
-@Table(name="accounts")
+@Table(name = "accounts")
 public class Accounts {
 
-	
-	
-		//fields
+	// fields
+	// id can't be null
 	@Id
-	@Column(name="accountId")
-	@NotNull(message="Field is required!")
+	@Column(name = "accountId")
+	@NotNull(message = "Field is required!")
 	private Long accountId;
-	
-	
-	@Column(name="accountIban")
-	@NotNull(message="Field is required!")
-	@Pattern(regexp = "^[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){5}(?:[ ]?[0-9]{1,2})?$", message="Ex: SA70 0500 0068 2013 0036 3000")
-	//
-	///^(?:(?:IT|SM)\\d{2}[A-Z]\\d{22}|CY\\d{2}[A-Z]\\d{23}|NL\\d{2}[A-Z]{4}\\d{10}|LV\\d{2}[A-Z]{4}\\d{13}|(?:BG|BH|GB|IE)\\d{2}[A-Z]{4}\\d{14}|GI\\d{2}[A-Z]{4}\\d{15}|RO\\d{2}[A-Z]{4}\\d{16}|KW\\d{2}[A-Z]{4}\\d{22}|MT\\d{2}[A-Z]{4}\\d{23}|NO\\d{13}|(?:DK|FI|GL|FO)\\d{16}|MK\\d{17}|(?:AT|EE|KZ|LU|XK)\\d{18}|(?:BA|HR|LI|CH|CR)\\d{19}|(?:GE|DE|LT|ME|RS)\\d{20}|IL\\d{21}|(?:AD|CZ|ES|MD|SA)\\d{22}|PT\\d{23}|(?:BE|IS)\\d{24}|(?:FR|MR|MC)\\d{25}|(?:AL|DO|LB|PL)\\d{26}|(?:AZ|HU)\\d{27}|(?:GR|MU)\\d{28})$/i
+
+	// iban with regex, can't be null
+	@Column(name = "accountIban")
+	@NotNull(message = "Field is required!")
+	@Pattern(regexp = "^[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){5}(?:[ ]?[0-9]{1,2})?$", message = "Ex: SA70 0500 0068 2013 0036 3000")
 	private String accountIban;
-	
-	@Column(name="swiftCode")
+
+	// swift code
+	@Column(name = "swiftCode")
 //	@Pattern(regexp = "^[a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}[XXX0-9]{0,3}\n", message="NEDSZAJJ, NEDSZAJJXXX, NEDSZAJJ100")
 	private String swiftCode;
-	
-	
-	@Column(name="bankName")
-	@NotNull(message="Field is required!")
+
+	// can't be null
+	@Column(name = "bankName")
+	@NotNull(message = "Field is required!")
 	private String bankName;
-	
-	
-	@Column(name="balance")
-	@NotNull(message="Field is required!")
+
+	// can't be null
+	@Column(name = "balance")
+	@NotNull(message = "Field is required!")
 	private Double balance;
-	
-	
-	@OneToMany( mappedBy = "account",fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})	
+
+	// relational table if delete account don't delete transactions
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH })
 	@JsonIgnore
 	private List<Transactions> transactions;
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	// relational table if account is deleted don't delete office
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "officeId")
 	private Offices office;
-	
-	
-	
-	//convenince method for bi-directional relationship
-	
-		public void add(Transactions tempTrans) {
-			if(transactions == null) {
-				transactions = new ArrayList<>();
-			}
-			transactions.add(tempTrans);
-			tempTrans.setAccount(this);
-	
+
+	// convenince method for bi-directional relationship for accounts
+
+	public void add(Transactions tempTrans) {
+		if (transactions == null) {
+			transactions = new ArrayList<>();
 		}
-	//default constructor 
+		transactions.add(tempTrans);
+		tempTrans.setAccount(this);
+
+	}
+	// default constructor
 
 	public Accounts() {
 		System.out.println("Accounts default constructor called!");
 	}
 
 	/**
+	 * my constructor
+	 * 
 	 * @param accountId
 	 * @param accountIban
 	 * @param swiftCode
@@ -103,6 +102,7 @@ public class Accounts {
 		this.office = office;
 	}
 
+	// getters and setters
 	public Long getAccountId() {
 		return accountId;
 	}
@@ -159,14 +159,11 @@ public class Accounts {
 		this.office = office;
 	}
 
+	// to string method
 	@Override
 	public String toString() {
 		return "Accounts [accountId=" + accountId + ", accountIban=" + accountIban + ", swiftCode=" + swiftCode
 				+ ", bankName=" + bankName + ", balance=" + balance + "]";
 	}
-	
-	
-	
-	
-	
+
 }

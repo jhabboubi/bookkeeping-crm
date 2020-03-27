@@ -1,6 +1,5 @@
 package com.fluidcodes.crm.entities;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,81 +19,79 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
-@Table(name="offices")
+@Table(name = "offices")
 public class Offices {
 
-	
-	//fields 
+	// fields
+	// id auto generate
 	@Id
-	@Column(name="officeId")
+	@Column(name = "officeId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer officeId;
-	
-	
-	@Column(name="officeName",unique=true)
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=50,message = "Field must be more than two letters!")
-	private String officeName;
-	
-	
-	@Column(name="officeAddressLineOne")
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=100,message = "Field must be more than two letters!")
-	private String officeAddressLineOne;
-	
-	
-	@Column(name="officeAddressLineTwo")
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=100,message = "Field must be more than two letters!")
-	private String officeAddressLineTwo;
-	
-	
-	@Column(name="officeCity")
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=50,message = "Field must be more than two letters!")
-	private String officeCity;
-	
 
-	@Column(name="officeZipCode")
-	@NotNull(message="Field is required!")
-	@Pattern(regexp = "^\\d{5}$",message = "Five numeric digits only!")
+	// office name must be unique , cant be null, min 2 letters, max 50
+	@Column(name = "officeName", unique = true)
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 50, message = "Field must be more than two letters!")
+	private String officeName;
+
+	// address not null, min 2 and max 100 letters
+	@Column(name = "officeAddressLineOne")
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 100, message = "Field must be more than two letters!")
+	private String officeAddressLineOne;
+
+	// address not null, min 2 and max 100 letters
+	@Column(name = "officeAddressLineTwo")
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 100, message = "Field must be more than two letters!")
+	private String officeAddressLineTwo;
+
+	// city not null, min 2 and max 50 letters
+	@Column(name = "officeCity")
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 50, message = "Field must be more than two letters!")
+	private String officeCity;
+
+	// not null , must be 5 numbers only
+	@Column(name = "officeZipCode")
+	@NotNull(message = "Field is required!")
+	@Pattern(regexp = "^\\d{5}$", message = "Five numeric digits only!")
 	private String officeZipCode;
-	
-	
-	@Column(name="officeTel")
-	@NotNull(message="Field is required!")
-	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$",message = "Allows 7,10,11# optional hyphens")
+
+	// cant be null , regex
+	@Column(name = "officeTel")
+	@NotNull(message = "Field is required!")
+	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$", message = "Allows 7,10,11# optional hyphens")
 	private String officeTel;
-	
-	
-	@Column(name="officeCountry")
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=50,message = "Field must be more than two letters!")
-	private String officeCountry; 
-	
-	
-	@OneToMany(mappedBy = "office",fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	// not null, min 2, max 50
+	@Column(name = "officeCountry")
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 50, message = "Field must be more than two letters!")
+	private String officeCountry;
+
+	// relational table account if delete dont delete accounts
+	@OneToMany(mappedBy = "office", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH })
 	@JsonIgnore
 	private List<Accounts> accounts;
-	
-	
-	@OneToMany( mappedBy = "office",fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	// relational table with users if delete dont delete users
+	@OneToMany(mappedBy = "office", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH })
 	@JsonIgnore
 	private List<Users> users;
-	
-	
-	
-	//default constructor 
+
+	// default constructor
 	public Offices() {
 		System.out.println("Offices default constructor called!");
 	}
-	
-	
-	
 
 	/**
+	 * my constructor
+	 * 
 	 * @param officeName
 	 * @param officeAddressLineOne
 	 * @param officeAddressLineTwo
@@ -120,32 +117,27 @@ public class Offices {
 		this.officeCountry = officeCountry;
 	}
 
+	// convenince method for bi-directional relationship for users
 
-
-
-	//convenince method for bi-directional relationship
-	
 	public void add(Users tempUser) {
-		if(users == null) {
+		if (users == null) {
 			users = new ArrayList<>();
 		}
 		users.add(tempUser);
 		tempUser.setOffice(this);
 	}
-	
-	//convenince method for bi-directional relationship
-	
+
+	// convenince method for bi-directional relationship for accounts
+
 	public void add(Accounts tempAccount) {
-		if(accounts == null) {
+		if (accounts == null) {
 			accounts = new ArrayList<>();
 		}
 		accounts.add(tempAccount);
 		tempAccount.setOffice(this);
 	}
-	
-	
 
-	
+	// getters and setters
 
 	public Integer getOfficeId() {
 		return officeId;
@@ -227,24 +219,13 @@ public class Offices {
 		this.users = users;
 	}
 
-
-
+	// to string method
 
 	@Override
 	public String toString() {
 		return "Offices [officeId=" + officeId + ", officeName=" + officeName + ", officeAddressLineOne="
 				+ officeAddressLineOne + ", officeAddressLineTwo=" + officeAddressLineTwo + ", officeCity=" + officeCity
-				+ ", officeZipCode=" + officeZipCode + ", officeTel=" + officeTel + ", officeCountry=" + officeCountry
-				;
+				+ ", officeZipCode=" + officeZipCode + ", officeTel=" + officeTel + ", officeCountry=" + officeCountry;
 	}
 
-
-
-
-	
-
-	
-
-	
-	
 }

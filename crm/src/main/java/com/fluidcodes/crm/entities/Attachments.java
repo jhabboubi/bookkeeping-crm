@@ -1,7 +1,5 @@
 package com.fluidcodes.crm.entities;
 
-
-
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -21,44 +19,46 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 @Entity
-@Table(name="attachments")
+@Table(name = "attachments")
 public class Attachments {
 
-	
-	//fields
-	@Column(name="attDateCreate")
+	// fields
+	// auto timestamp created
+	@Column(name = "attDateCreate")
 	@CreationTimestamp
 	private Date attDateCreate;
-	
-	@Column(name="attDateUpdated")
+
+	// auto timestamp updated
+	@Column(name = "attDateUpdated", nullable = false, updatable = false)
 	@UpdateTimestamp
 	private Date attDateUpdated;
-	
-	
+
+	// id auto generate
 	@Id
-	@Column(name="attId")
+	@Column(name = "attId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long attId;
-	
-	
-	
-	
-	@Column(name="attPath")
-	@NotNull(message="Field is required!")
-    private String attPath;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	// url to file, not null
+	@Column(name = "attPath")
+	@NotNull(message = "Field is required!")
+	private String attPath;
+
+	// relational table if delete dont delete transaction
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "transId")
 	private Transactions transaction;
-	
-	
-	public Attachments() {System.out.println("Attachments default constructor called");}
 
+	// default constructor
+	public Attachments() {
+		System.out.println("Attachments default constructor called");
+	}
 
 	/**
+	 * my constructor
+	 * 
 	 * @param attDateCreate
 	 * @param attDateUpdated
 	 * @param attId
@@ -74,72 +74,53 @@ public class Attachments {
 		this.transaction = transaction;
 	}
 
+	// getters and setters
 
 	public Date getAttDateCreate() {
 		return attDateCreate;
 	}
 
-
 	public void setAttDateCreate(Date attDateCreate) {
 		this.attDateCreate = attDateCreate;
 	}
-
 
 	public Date getAttDateUpdated() {
 		return attDateUpdated;
 	}
 
-
 	public void setAttDateUpdated(Date attDateUpdated) {
 		this.attDateUpdated = attDateUpdated;
 	}
-
 
 	public Long getAttId() {
 		return attId;
 	}
 
-
 	public void setAttId(Long attId) {
 		this.attId = attId;
 	}
-
 
 	public String getAttPath() {
 		return attPath;
 	}
 
-
 	public void setAttPath(String attPath) {
 		this.attPath = attPath;
 	}
-
 
 	public Transactions getTransaction() {
 		return transaction;
 	}
 
-
 	public void setTransaction(Transactions transaction) {
 		this.transaction = transaction;
 	}
 
-
+	// to string method
 	@Override
 	public String toString() {
 		return "Attachments [attDateCreate=" + attDateCreate + ", attDateUpdated=" + attDateUpdated + ", attId=" + attId
 				+ ", attPath=" + attPath + ", transaction=" + transaction + "]";
 	}
 
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
 }

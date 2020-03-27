@@ -1,6 +1,5 @@
 package com.fluidcodes.crm.entities;
 
-
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -17,85 +16,89 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class Users {
 
-	
-		// fields
+	// fields
+	// id can't be null
 	@Id
-	@Column(name="userId")
-	@NotNull(message="Field is required!")
+	@Column(name = "userId")
+	@NotNull(message = "Field is required!")
 	private Long userId;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	// relational field with offices, if delete don't delete office
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "officeId")
 	private Offices office;
-	
-	@Column(name="userNameEn")
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=100,message = "Field must be more than two letters!")
+
+	// en name , can't be null or less than 2 letters or more than 100 letter
+	@Column(name = "userNameEn")
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 100, message = "Field must be more than two letters!")
 	private String userNameEn;
-	
-	
-	@Column(name="userNameAr")
-	@NotNull(message="Field is required!")
-	@Size(min=2, max=100,message = "Field must be more than two letters!")
+
+	// ar name , can't be null or less than 2 letters or more than 100 letter
+	@Column(name = "userNameAr")
+	@NotNull(message = "Field is required!")
+	@Size(min = 2, max = 100, message = "Field must be more than two letters!")
 	private String userNameAr;
-	
+
+	// date of renew id change date recored to db to be only date without time,
+	// can't be null
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="userIdRenewalDateGorg")
-	@NotNull(message="Field is required!")
+	@Column(name = "userIdRenewalDateGorg")
+	@NotNull(message = "Field is required!")
 	private Date userIdRenewalDateGorg;
-	
-	
-	@Column(name="userIdRenewalDateHijri")
+
+	// date in hijri
+	@Column(name = "userIdRenewalDateHijri")
 	private String userIdRenewalDateHijri;
-	
-	
-	@Column(name="userEmail", unique=true)
-	@NotNull(message="Field is required!")
-	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", message="Ex: joe@aol.com or joe@wrox.com.sa")
+
+	// user email must be unique and not null with regex check
+	@Column(name = "userEmail", unique = true)
+	@NotNull(message = "Field is required!")
+	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", message = "Ex: joe@aol.com or joe@wrox.com.sa")
 	private String userEmail;
-	
-	
-	@Column(name="userMobile")
-	@NotNull(message="Field is required!")
-	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$",message = "Allows 7,10,11# optional hyphens")
+
+	// mobile number , can't be null , with regex check
+	@Column(name = "userMobile")
+	@NotNull(message = "Field is required!")
+	@Pattern(regexp = "^(1?(-?\\d{3})-?)?(\\d{3})(-?\\d{4})$", message = "Allows 7,10,11# optional hyphens")
 	private String userMobile;
-	
-	//@Pattern(regexp = "^[a-zA-Z]\\w{3,50}$", message="Begin with a letter, 4 minimum characters, and underscore may be used")
-	@Column(name="userPass")
-	@NotNull(message="Field is required!")
+
+	// user password cant be null will be hashed in db
+	// @Pattern(regexp = "^[a-zA-Z]\\w{3,50}$", message="Begin with a letter, 4
+	// minimum characters, and underscore may be used")
+	@Column(name = "userPass")
+	@NotNull(message = "Field is required!")
 	private String userPass;
-	
-	
-	@Column(name="userImgUrl")
+
+	// user img url
+	@Column(name = "userImgUrl")
 	private String userImgUrl;
-	
-	
-	@Column(name="userRole")
-	@NotNull(message="Field is required!")
+
+	// user role , can't be null
+	@Column(name = "userRole")
+	@NotNull(message = "Field is required!")
 	private String userRole;
-	
-	@Column(name="userActive",  columnDefinition = "boolean default true" )
+
+	// user is active or disabled by default active
+	@Column(name = "userActive", columnDefinition = "boolean default true")
 	private Boolean userActive;
 
-	//default constructor
-	
+	// default constructor
 	public Users() {
 		System.out.println("Users default constructor called!");
 	}
-	
-	
 
-
+	// getters and setters
 	public Long getUserId() {
 		return userId;
 	}
@@ -103,8 +106,6 @@ public class Users {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-
-	
 
 	public String getUserNameEn() {
 		return userNameEn;
@@ -138,10 +139,8 @@ public class Users {
 		this.userIdRenewalDateHijri = userIdRenewalDateHijri;
 	}
 
-	
-	
 	public String getUserPass() {
-		
+
 		return userPass;
 	}
 
@@ -165,75 +164,39 @@ public class Users {
 		this.userRole = userRole;
 	}
 
-	
-
-
-
 	public String getUserEmail() {
 		return userEmail;
 	}
-
-
-
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
 
-
-
-
 	public String getUserMobile() {
 		return userMobile;
 	}
-
-
-
 
 	public void setUserMobile(String userMobile) {
 		this.userMobile = userMobile;
 	}
 
-
-
-
-	
-
-
-
-
 	public Offices getOffice() {
 		return office;
 	}
-
-
-
 
 	public void setOffice(Offices office) {
 		this.office = office;
 	}
 
-
-
-
-
-
-
-
 	public Boolean getUserActive() {
 		return userActive;
 	}
-
-
-
 
 	public void setUserActive(Boolean userActive) {
 		this.userActive = userActive;
 	}
 
-
-
-
+	// to string method
 	@Override
 	public String toString() {
 		return "Users [userId=" + userId + ", office=" + office + ", userNameEn=" + userNameEn + ", userNameAr="
@@ -242,11 +205,5 @@ public class Users {
 				+ userPass + ", userImgUrl=" + userImgUrl + ", userRole=" + userRole + ", userActive=" + userActive
 				+ "]";
 	}
-
-	
-
-	
-	
-	
 
 }

@@ -22,73 +22,78 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="transactions")
+@Table(name = "transactions")
 public class Transactions {
 
-	//fields
-	@Column(name="transDateCreate", nullable = false, updatable = false)
+	// fields
+	// auto stamp for date created
+	@Column(name = "transDateCreate", nullable = false, updatable = false)
 	@CreationTimestamp
 	private Date transDateCreate;
-	
-	@Column(name="transDateUpdated")
+
+	// auto stamp for date updated
+	@Column(name = "transDateUpdated")
 	@UpdateTimestamp
 	private Date transDateUpdated;
-	
-	
+
+	// id auto generate
 	@Id
-	@Column(name="transId")
+	@Column(name = "transId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long transId;
 
-	
-	@Column(name="transDescription")
-	@Size(min=2, max=100,message = "Field must be more than two letters!")
-	@NotNull(message="Field is required!")
+	// desc , can't be null, min 2 and max 200
+	@Column(name = "transDescription")
+	@Size(min = 2, max = 200, message = "Field must be more than two letters!")
+	@NotNull(message = "Field is required!")
 	private String transDescription;
-	
-	
-	@Column(name="transAmount")
-	@NotNull(message="Field is required!")
+
+	// amount of transaction , can't be null
+	@Column(name = "transAmount")
+	@NotNull(message = "Field is required!")
 	private Double transAmount;
-	
-	
-	@Column(name="transMethod")
+
+	// method for transaction
+	@Column(name = "transMethod")
 	private String transMethod;
-	
-	
-	@Column(name="transIsCredit", columnDefinition = "boolean default false")
-	private Boolean transIsCredit; 
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	// boolean if credit or expense
+	@Column(name = "transIsCredit", columnDefinition = "boolean default false")
+	private Boolean transIsCredit;
+
+	// relational table for account , if delete transaction dont delete account
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "accountId")
 	private Accounts account;
-	
-	@OneToMany( mappedBy = "transaction",fetch=FetchType.LAZY,cascade= CascadeType.ALL)	
+
+	// relational table for attachment if delete transaction delete attachments
+	@OneToMany(mappedBy = "transaction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Attachments> attachments;
-	
-	
-	
-	//Convenience method for bi-directional relationship
-	
-		public void add(Attachments tempAtt) {
-			if(attachments == null) {
-				attachments = new ArrayList<>();
-			}
-			attachments.add(tempAtt);
-			tempAtt.setTransaction(this);
+
+	// Convenience method for bi-directional relationship
+
+	public void add(Attachments tempAtt) {
+		if (attachments == null) {
+			attachments = new ArrayList<>();
 		}
-	
+		attachments.add(tempAtt);
+		tempAtt.setTransaction(this);
+	}
+
 	// default constructor
-	
+
 	public Transactions() {
 		System.out.println("Transactions default constructor called!");
 	}
 
 	/**
+	 * my constructor
+	 * 
 	 * @param transDateCreate
 	 * @param transDateUpdated
 	 * @param transId
@@ -113,6 +118,8 @@ public class Transactions {
 		this.account = account;
 		this.attachments = attachments;
 	}
+
+	// getters and setters
 
 	public Date getTransDateCreate() {
 		return transDateCreate;
@@ -186,6 +193,8 @@ public class Transactions {
 		this.attachments = attachments;
 	}
 
+	// to string method
+
 	@Override
 	public String toString() {
 		return "Transactions [transDateCreate=" + transDateCreate + ", transDateUpdated=" + transDateUpdated
@@ -193,12 +202,4 @@ public class Transactions {
 				+ ", transMethod=" + transMethod + ", transIsCredit=" + transIsCredit + ", account=" + account + "]";
 	}
 
-	
-
-
-
-	
-	
-	
-	
 }
