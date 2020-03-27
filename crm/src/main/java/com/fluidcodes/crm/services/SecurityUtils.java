@@ -6,23 +6,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public final class SecurityUtils {
-	
-	
-	 private SecurityUtils() {
-	    }
 
+	// method to find login user via email
+	private SecurityUtils() {
+	}
 
-	    public static String getUserName() {
-	        SecurityContext securityContext = SecurityContextHolder.getContext();
-	        Authentication authentication = securityContext.getAuthentication();
-	        String userName = null;
-	        if (authentication != null) {
+	public static String getUserName() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication authentication = securityContext.getAuthentication();
+		String userName = null;
+		if (authentication != null) {
 
-	                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	                userName = userDetails.getUsername();
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			userName = userDetails.getUsername();
 
-	        }
-	        return userName;
-	    }
+		}
+		return userName;
+	}
 
 }

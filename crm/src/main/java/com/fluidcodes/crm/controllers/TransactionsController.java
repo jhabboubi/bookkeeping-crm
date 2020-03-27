@@ -1,6 +1,5 @@
 package com.fluidcodes.crm.controllers;
 
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,128 +21,138 @@ import com.fluidcodes.crm.services.TransactionsService;
 
 @Controller
 public class TransactionsController {
+
+	// wiring all repos needed
 	@Autowired
 	private AccountsService accountsservice;
 	@Autowired
 	private TransactionsService transservice;
 
 	public TransactionsController(TransactionsService transservice) {
-		this.transservice=transservice;
+		this.transservice = transservice;
 	}
-	
+
+	// requesting expenses
 	@RequestMapping("expenses")
 	public String listExpenses(Model modelExpenses) {
+		// find all transaction that are expenses
 		List<Transactions> listExpenses = transservice.findAll();
-		for(int i=0;i<listExpenses.size();i++) {
-			if(listExpenses.get(i).getTransIsCredit()) {
+		for (int i = 0; i < listExpenses.size(); i++) {
+			if (listExpenses.get(i).getTransIsCredit()) {
 				listExpenses.remove(i);
 			}
-				
-		}
-		
-		modelExpenses.addAttribute("listExpenses", listExpenses);
-		
-	
-		
 
-		return"expenses";
+		}
+		// load all expenses to listExpenses
+		modelExpenses.addAttribute("listExpenses", listExpenses);
+		// goto expenses.html
+		return "expenses";
 	}
-	
-	
+
+	// requesting income
 	@RequestMapping("income")
 	public String listIncome(Model modelIncome) {
+
+		// find all transaction that are income
 		List<Transactions> listIncome = transservice.findAll();
-		for(int i=0;i<listIncome.size();i++) {
-			if(!listIncome.get(i).getTransIsCredit()) {
+		for (int i = 0; i < listIncome.size(); i++) {
+			if (!listIncome.get(i).getTransIsCredit()) {
 				listIncome.remove(i);
 			}
-				
-		}
-		
-		modelIncome.addAttribute("listIncome", listIncome);
-		
-	
-		
 
-		return"income";
+		}
+		// load all expenses to listIncome
+		modelIncome.addAttribute("listIncome", listIncome);
+		// goto income.html
+		return "income";
 	}
-	
-	
-	
-	
+
+	// issuing a new transaction
 	@RequestMapping("newtrans")
 	public String addTrans(Model modelTrans, Model modelAccounts, Model account) {
+		// new object of Transactions
 		Transactions newTrans = new Transactions();
-		System.out.println("new trans before add"+newTrans);
+		System.out.println("new trans before add" + newTrans);
+		// find all accounts available
 		List<Accounts> accountInfo = accountsservice.findAll();
-		
-		
-		
-		
-		modelAccounts.addAttribute("listAccountsAva",accountInfo);
+		// contain all accounts available in listAccountsAva
+		modelAccounts.addAttribute("listAccountsAva", accountInfo);
+		// contain new transaction in newTrans
 		modelTrans.addAttribute("newTrans", newTrans);
-		
-		
-		
+
+		// new object of accounts
 		Accounts acc = new Accounts();
+		// set it to the first account as a place holder until user choose the account
+		// desired
 		acc.setAccountId(accountInfo.get(0).getAccountId());
 		account.addAttribute("acc", acc);
-		System.out.println("Account model after  setting"+account);
-		System.out.println("acc id "+acc);
+		System.out.println("Account model after  setting" + account);
+		System.out.println("acc id " + acc);
+		// find account by id
 		accountsservice.findById(acc.getAccountId());
-		System.out.println("new trans after  add"+newTrans);
-		
+		System.out.println("new trans after  add" + newTrans);
+		// goto transform.html
 		return "transform";
 	}
-	
-	
+
+	// edit existing transaction via param trans ID
 	@RequestMapping("edittrans")
-	public String editTrans(@RequestParam("transId") Long transId, Model modelTrans, Model modelAccounts, Model account) {
+	public String editTrans(@RequestParam("transId") Long transId, Model modelTrans, Model modelAccounts,
+			Model account) {
+
+		// find all accounts available
 		List<Accounts> accountInfo = accountsservice.findAll();
-		modelAccounts.addAttribute("listAccountsAva",accountInfo);
-		
-		
+		modelAccounts.addAttribute("listAccountsAva", accountInfo);
+
+		// find transaction by ID
 		Transactions editTrans = transservice.findById(transId);
+		// save transaction account to reuse later
 		Accounts transAccount = editTrans.getAccount();
+		// contain informaton in acc
 		account.addAttribute("acc", transAccount);
-		System.out.println("ID for Trans Edit: "+transId);
-		System.out.println("On Trans edit form"+editTrans);
-		modelAccounts.addAttribute("listAccountsAva",accountInfo);
+		System.out.println("ID for Trans Edit: " + transId);
+		System.out.println("On Trans edit form" + editTrans);
+		// contain all accounts in listAccountsAva
+		modelAccounts.addAttribute("listAccountsAva", accountInfo);
+		// contain edit transaction in newTrans
 		modelTrans.addAttribute("newTrans", editTrans);
-		
+		// goto transform.html
 		return "transform";
 	}
-	
+
+	// saving the new or edit transaction
 	@PostMapping("savetrans")
-	public String saveTrans(@Valid @ModelAttribute("newTrans") Transactions newTrans, BindingResult bind, Model modelAccounts, @ModelAttribute("acc") Accounts acc) {
+	public String saveTrans(@Valid @ModelAttribute("newTrans") Transactions newTrans, BindingResult bind,
+			Model modelAccounts, @ModelAttribute("acc") Accounts acc) {
 		System.out.println(newTrans);
-		if(bind.hasErrors()) {
-			System.out.println("error count:"+bind.getErrorCount());
+		// Validate form fields
+		if (bind.hasErrors()) {
+			System.out.println("error count:" + bind.getErrorCount());
 			System.out.println(bind.getFieldErrors());
 			List<Accounts> accountInfo = accountsservice.findAll();
-			modelAccounts.addAttribute("listAccountsAva",accountInfo);
-			System.out.println("Error after submit button: "+ newTrans);
+			modelAccounts.addAttribute("listAccountsAva", accountInfo);
+			System.out.println("Error after submit button: " + newTrans);
+			// if errors goto transform.html
 			return "transform";
 		}
-		
-	
-		System.out.println("before save: "+ newTrans);
-		
-		
+		System.out.println("before save: " + newTrans);
+
+		// save transaction
 		transservice.save(newTrans, acc.getAccountId());
-		
-		if(newTrans.getTransIsCredit()) 
-		return "redirect:/income";
+		// if transaction is income goto income.html, else if expenses goto
+		// expenses.html
+		if (newTrans.getTransIsCredit())
+			return "redirect:/income";
 		else
-		return "redirect:/expenses";
+			return "redirect:/expenses";
 	}
-	
-	
+
+	// delete a transaction via param ID
 	@GetMapping("deletetrans")
 	public String deleteTrans(@RequestParam("transId") Long transId) {
 		transservice.deleteById(transId);
-		
-		
+
+		// goto expenses.html
 		return "redirect:/expenses";
 	}
 }

@@ -10,23 +10,31 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.fluidcodes.crm.dao.UsersRepo;
 
+/* Date: Mar 10, 2020 to Mar 27, 2020
+ * Creater : Jafer Mohammed Alhaboubi
+ * Ms Bookkeeping is a application based on a company need for an ERP system
+ */
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = UsersRepo.class)
 public class CrmApplication {
-	
+
+	// enabling thymeleaf sec for view controlling and session information
 	@Bean
 	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver, SpringSecurityDialect sec) {
-	    final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-	    templateEngine.setTemplateResolver(templateResolver);
-	    templateEngine.addDialect(sec); // Enable use of "sec"
-	    return templateEngine;
+		final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver);
+		templateEngine.addDialect(sec); // Enable use of "sec"
+		return templateEngine;
 	}
-	@Bean
-    public SpringSecurityDialect securityDialect() {
-        return new SpringSecurityDialect();
-    }
 
+	// enabling thymeleaf sec for view controlling and session information
+	@Bean
+	public SpringSecurityDialect securityDialect() {
+		return new SpringSecurityDialect();
+	}
+
+	// Main method
 	public static void main(String[] args) {
 		SpringApplication.run(CrmApplication.class, args);
 	}
