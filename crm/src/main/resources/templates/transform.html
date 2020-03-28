@@ -125,18 +125,28 @@
 
 				<div class="input-field col s12 m12 l6">
 
-					<input disabled id="transDateCreate"
+					<input id="transDateCreate"
 						th:text="${#dates.format(newTrans.transDateCreate, 'dd-MMM-yyyy HH:mm a')}"
-						type="text" class="validate" /> <label
+						type="text" class="validate" readonly="readonly" /> <label
 						for="transDateCreate">Date Create</label>
 				</div>
 
 				<div class="input-field col s12 m12 l6">
 
-					<input disabled id="transDateUpdated"
+					<input  id="transDateUpdated"
 						th:text="${#dates.format(newTrans.transDateUpdated, 'dd-MMM-yyyy HH:mm a')}"
-						type="text" class="validate"  /> <label
+						type="text" class="validate" readonly="readonly" /> <label
 						for="transDateUpdated">Date Updated</label>
+				</div>
+				
+				<div class="input-field col s12 m12 l6">
+
+					<input id="transId"
+						th:field="${newTrans.transId}" type="text"
+						class="validate" readonly="readonly" /> <label for="transId">Transaction ID</label>
+					<span th:if="${#fields.hasErrors('newTrans.transId')}"
+						th:errors="*{newTrans.transId}" class="error">Name
+						Error</span>
 				</div>
 
 
