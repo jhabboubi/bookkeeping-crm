@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import com.fluidcodes.crm.dao.OfficesRepo;
 import com.fluidcodes.crm.dao.UsersRepo;
 import com.fluidcodes.crm.entities.Offices;
 import com.fluidcodes.crm.entities.Users;
+import com.fluidcodes.crm.security.SecurityConfiguration;
 
 /*
  * Implementing methods from spring jpa
@@ -18,8 +19,8 @@ import com.fluidcodes.crm.entities.Users;
 @Service
 public class UsersService {
 
-	@Autowired
-	private BCryptPasswordEncoder encode;
+//	@Autowired
+//	private BCryptPasswordEncoder encode;
 
 	@Autowired
 	private UsersRepo userRepo;
@@ -40,6 +41,7 @@ public class UsersService {
 	public Users findById(Long id) {
 
 		return userRepo.findById(id).get();
+		
 
 	}
 
@@ -83,7 +85,9 @@ public class UsersService {
 
 		// encode password before saving to db
 		String pass = newUser.getUserPass();
-		String encrPass = encode.encode(pass);
+		
+		//String encrPass = encode.encode(pass);
+		String encrPass = SecurityConfiguration.getPasswordEncoder().encode(pass);
 		newUser.setUserPass(encrPass);
 		office.add(newUser);
 		System.out.println("Set office after add user: " + office);

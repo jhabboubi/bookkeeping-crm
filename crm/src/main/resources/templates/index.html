@@ -56,7 +56,7 @@
     <ul  class="right hide-on-med-and-down">
     <li><span style="color: green" sec:authentication="name" /></li>
             <li><a class="thenav" th:href="@{/ }">Home</a></li>
-        <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{expenses}">Expenses</a></li>
+        <li><a class="thenav" th:href="@{expenses}">Expenses</a></li>
         <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{income}">Income</a></li>
         <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="thenav" th:href="@{reports}">Reports</a></li>
         <li sec:authorize="hasRole('ROLE_EMPLOYEE')"><a class="thenav" th:href="@{settings}">Settings</a></li>

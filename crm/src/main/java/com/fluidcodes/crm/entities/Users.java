@@ -1,4 +1,4 @@
-package com.fluidcodes.crm.entities;
+ package com.fluidcodes.crm.entities;
 
 import java.util.Date;
 
@@ -74,8 +74,7 @@ public class Users {
 	private String userMobile;
 
 	// user password cant be null will be hashed in db
-	// @Pattern(regexp = "^[a-zA-Z]\\w{3,50}$", message="Begin with a letter, 4
-	// minimum characters, and underscore may be used")
+@Pattern(regexp = "^[a-zA-Z]\\w{3,50}$", message="Begin with a letter, 4 minimum characters, and underscore may be used")
 	@Column(name = "userPass")
 	@NotNull(message = "Field is required!")
 	private String userPass;
