@@ -103,8 +103,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 
 				.csrf().disable().formLogin().loginPage("/login").permitAll().loginProcessingUrl("/login/authenticate")
-				.failureUrl("/login?error=true").defaultSuccessUrl("/").usernameParameter("uu")
-				.passwordParameter("pp")
+				.failureUrl("/login?error=true").defaultSuccessUrl("/").usernameParameter("userEmail")
+				.passwordParameter("userPass")
 
 				.and()
 

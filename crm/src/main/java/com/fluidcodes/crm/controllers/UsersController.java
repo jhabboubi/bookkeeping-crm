@@ -40,10 +40,7 @@ public class UsersController {
 
 	// for the custom login page container
 	@GetMapping("/login")
-	public String showLogin(Model model) {
-		Users user = new Users();
-		model.addAttribute("user", user);
-		// goto login.html
+	public String showLogin() {
 		return "login";
 	}
 
