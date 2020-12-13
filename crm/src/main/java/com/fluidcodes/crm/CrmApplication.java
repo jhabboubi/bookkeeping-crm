@@ -10,6 +10,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.fluidcodes.crm.dao.UsersRepo;
 
+import lombok.extern.log4j.Log4j2;
+
 /* Date: Mar 10, 2020 to Mar 27, 2020
  * Creater : Jafer Mohammed Alhaboubi
  * Ms Bookkeeping is a application based on a company need for an ERP system
@@ -17,6 +19,7 @@ import com.fluidcodes.crm.dao.UsersRepo;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = UsersRepo.class)
+@Log4j2
 public class CrmApplication {
 
 	// enabling thymeleaf sec for view controlling and session information
@@ -37,6 +40,7 @@ public class CrmApplication {
 	// Main method
 	public static void main(String[] args) {
 		SpringApplication.run(CrmApplication.class, args);
+		log.info("SpringBoot Main Method...");
 	}
 
 }

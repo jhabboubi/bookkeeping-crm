@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fluidcodes.crm.dao.UsersRepo;
-import com.fluidcodes.crm.entities.Offices;
-import com.fluidcodes.crm.entities.Users;
+import com.fluidcodes.crm.models.Offices;
+import com.fluidcodes.crm.models.Users;
 import com.fluidcodes.crm.services.OfficesService;
 import com.fluidcodes.crm.services.SecurityUtils;
 import com.fluidcodes.crm.services.UsersService;

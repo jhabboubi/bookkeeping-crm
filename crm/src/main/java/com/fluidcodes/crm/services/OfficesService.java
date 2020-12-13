@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fluidcodes.crm.dao.OfficesRepo;
-import com.fluidcodes.crm.entities.Offices;
+import com.fluidcodes.crm.models.Offices;
 
 /*
  * Implementing methods from spring jpa

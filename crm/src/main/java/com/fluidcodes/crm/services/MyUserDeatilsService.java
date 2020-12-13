@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.fluidcodes.crm.dao.UsersRepo;
-import com.fluidcodes.crm.entities.Users;
+import com.fluidcodes.crm.models.Users;
 
 @Service
 public class MyUserDeatilsService implements UserDetailsService {

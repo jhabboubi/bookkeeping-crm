@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.fluidcodes.crm.dao.AccountsRepo;
 import com.fluidcodes.crm.dao.OfficesRepo;
-
-import com.fluidcodes.crm.entities.Accounts;
-import com.fluidcodes.crm.entities.Offices;
+import com.fluidcodes.crm.models.Accounts;
+import com.fluidcodes.crm.models.Offices;
 
 /*
  * Implementing methods from spring jpa

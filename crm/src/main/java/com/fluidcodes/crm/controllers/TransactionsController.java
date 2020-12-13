@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fluidcodes.crm.entities.Accounts;
-import com.fluidcodes.crm.entities.Transactions;
+import com.fluidcodes.crm.models.Accounts;
+import com.fluidcodes.crm.models.Transactions;
 import com.fluidcodes.crm.services.AccountsService;
 import com.fluidcodes.crm.services.TransactionsService;
 
