@@ -2,9 +2,11 @@ package com.fluidcodes.crm.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.LogManager;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.message.LoggerNameAwareMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,10 @@ import com.fluidcodes.crm.services.OfficesService;
 import com.fluidcodes.crm.services.SecurityUtils;
 import com.fluidcodes.crm.services.UsersService;
 
+import lombok.extern.log4j.Log4j2;
+
 @Controller
+@Log4j2
 public class UsersController {
 
 	// wire all the repos to be used
@@ -36,12 +41,15 @@ public class UsersController {
 
 	public UsersController(UsersService usersservice) {
 		this.usersservice = usersservice;
+		log.trace("UsersController Constructor called!");
+	
 	}
 
 	// for the custom login page container
 	@GetMapping("/login")
 	public String showLogin() {
 		return "login";
+		
 	}
 
 	// issuing a new user
