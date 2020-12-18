@@ -1,6 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,maven,java,macos,intellij,pydev,scala,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,maven,java,macos,intellij,pydev,scala,vscode
-
+###
 ### Eclipse ###
 .metadata
 bin/
