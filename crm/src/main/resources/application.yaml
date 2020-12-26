@@ -1,0 +1,41 @@
+logging:
+    level:
+        com:
+            fluidcodes:
+                crm: trace
+        org:
+            hibernate:
+                SQL: info
+                type: info
+server:
+    port: 8080
+spring:
+    datasource:
+        driver-class-name: org.mariadb.jdbc.Driver
+        initialization-mode: always
+        password: root
+        url: jdbc:mariadb://localhost:3306/fc_crm
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate:
+                dailect: org.hibernate.dialect.MariaDB103Dialect
+                event:
+                    merge:
+                        entity_copy_observer: allow
+        show-sql: true
+    security:
+        user:
+            name: '"admin"'
+            password: '"admin"'
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 50MB
+            max-request-size: 60MB
