@@ -23,11 +23,11 @@ import com.fluidcodes.crm.services.OfficesService;
 public class AccountsController {
 
 	// wiring office,account services for use in controller
-	@Autowired
-	private OfficesService officesservice;
-	@Autowired
-	private AccountsService accountsservice;
 
+	private OfficesService officesservice;
+
+	private AccountsService accountsservice;
+	@Autowired
 	public AccountsController(AccountsService accountsservice) {
 		this.accountsservice = accountsservice;
 	}

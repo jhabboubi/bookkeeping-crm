@@ -6,7 +6,7 @@ import java.util.logging.LogManager;
 
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.message.LoggerNameAwareMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +24,9 @@ import com.fluidcodes.crm.services.OfficesService;
 import com.fluidcodes.crm.services.SecurityUtils;
 import com.fluidcodes.crm.services.UsersService;
 
-import lombok.extern.log4j.Log4j2;
 
 @Controller
-@Log4j2
+@Slf4j
 public class UsersController {
 
 	// wire all the repos to be used
