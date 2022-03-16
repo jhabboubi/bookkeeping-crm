@@ -6,6 +6,8 @@ import java.util.logging.LogManager;
 
 import javax.validation.Valid;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,24 +26,21 @@ import com.fluidcodes.crm.services.OfficesService;
 import com.fluidcodes.crm.services.SecurityUtils;
 import com.fluidcodes.crm.services.UsersService;
 
-
+@FieldDefaults(makeFinal = true,level = AccessLevel.PRIVATE)
 @Controller
 @Slf4j
 public class UsersController {
 
 	// wire all the repos to be used
-	@Autowired
-	private OfficesService officesservice;
-	@Autowired
-	private UsersService usersservice;
 
+	OfficesService officesservice;
+	UsersService usersservice;
+	UsersRepo usersrepo;
 	@Autowired
-	private UsersRepo usersrepo;
-
-	public UsersController(UsersService usersservice) {
+	public UsersController(OfficesService officesservice, UsersService usersservice, UsersRepo usersrepo) {
+		this.officesservice = officesservice;
 		this.usersservice = usersservice;
-		log.trace("UsersController Constructor called!");
-	
+		this.usersrepo = usersrepo;
 	}
 
 	// for the custom login page container
